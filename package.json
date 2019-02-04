@@ -1,0 +1,25 @@
+{
+  "name": "BloopLabs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sh4nik/BloopLabs.git"
+  },
+  "keywords": [
+    "genetic algorithm",
+    "artificial neural network",
+    "simulation",
+    "artificial life"
+  ],
+  "author": "Shanik Makalande",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sh4nik/BloopLabs/issues"
+  },
+  "homepage": "https://github.com/sh4nik/BloopLabs#readme"
+}
