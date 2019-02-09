@@ -1,14 +1,32 @@
 class Theme {
     static get(theme) {
         const themes = {
-            circus: {
+            solar: {
+                backgroundColor: '#1a3c54',
+                foodColor: '#0cd6b3',
+                poisonColor: '#c51d21',
+                agentBodyColor: '#e29e00',
+                agentOutlineColor: '#1a3c54',
+                edibleOutlineColor: '#1a3c54',
+                agroAgentBodyColor: '#f96b0e'
+            },
+            jah: {
                 backgroundColor: '#000',
-                foodColor: '#0da5bd',
-                poisonColor: '#ff3838',
-                agentBodyColor: '#72ff83',
+                foodColor: '#e6cf10',
+                poisonColor: '#444',
+                agentBodyColor: '#005c25',
                 agentOutlineColor: '#000',
-                edileOutlineColor: '#000',
-                agroAgentBodyColor: '#ff803f'
+                // edibleOutlineColor: '#000',
+                agroAgentBodyColor: '#740028'
+            },
+            halloween: {
+                backgroundColor: '#000',
+                foodColor: '#20d8d2',
+                poisonColor: '#444',
+                agentBodyColor: '#f7e200',
+                agentOutlineColor: '#000',
+                // edibleOutlineColor: '#000',
+                agroAgentBodyColor: '#f4561c'
             },
             bloop: {
                 backgroundColor: '#223',
