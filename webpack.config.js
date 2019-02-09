@@ -1,5 +1,6 @@
 const path = require('path');
 const config = {
+  mode: 'development',
   entry: [path.resolve(__dirname, 'src/index.js')],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -7,7 +8,7 @@ const config = {
   },
   node: { fs: 'empty' },
   module: {
-    loaders: [
+    rules: [
       {
         loader: 'babel-loader',
         test: /\.js$/,
