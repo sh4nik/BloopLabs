@@ -11,26 +11,6 @@
         }
     </style>
     <script>
-        class Food extends BloopLabs.Edible {
-            constructor(opts) {
-                super(opts);
-                this.healthImpact = opts.healthImpact;
-                this.size = opts.size;
-            }
-            getColor(theme) {
-                return theme.foodColor;
-            }
-        }
-        class Poison extends BloopLabs.Edible {
-            constructor(opts) {
-                super(opts);
-                this.healthImpact = opts.healthImpact;
-                this.size = opts.size;
-            }
-            getColor(theme) {
-                return theme.poisonColor;
-            }
-        }
         function init() {
             const sim = new BloopLabs.Simulation({
                 canvasId: 'main-canvas',
@@ -38,8 +18,8 @@
                 theme: 'bloop',
                 entityConfig: [
                     { groupId: 'normies', Entity: BloopLabs.Agent, count: 60, max: 100, min: 20, opts: { size: 8 } },
-                    { groupId: 'poison', Entity: Poison, count: 60, opts: { healthImpact: -10000, size: 5 } },
-                    { groupId: 'food', Entity: Food, count: 30, opts: { healthImpact: 5000, size: 4 } }
+                    { groupId: 'poison', Entity: BloopLabs.Poison, count: 60, opts: { healthImpact: -10000, size: 5 } },
+                    { groupId: 'food', Entity: BloopLabs.Food, count: 30, opts: { healthImpact: 5000, size: 4 } }
                 ]
             });
             sim.run();
