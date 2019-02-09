@@ -1,3 +1,5 @@
+import p5 from 'p5';
+
 class Util {
     static random(max) {
         return Math.random() * max;
@@ -20,6 +22,11 @@ class Util {
     static roundToDecimal(i) {
         return Math.round(i * 10) / 10;
     }
+    static createVector(x, y) {
+        return Util._p5.createVector(x, y);
+    }
 }
+
+Util._p5 = new p5();
 
 export default Util;

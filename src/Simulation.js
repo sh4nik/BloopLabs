@@ -1,7 +1,11 @@
+import { Stage, Ticker } from "@createjs/easeljs";
+import Theme from './Theme';
+import EntityProcessor from './EntityProcessor';
+
 class Simulation {
     constructor({ canvasId, entityConfig, framerate, theme }) {
         this.renderer = {
-            stage: new createjs.Stage(canvasId),
+            stage: new Stage(canvasId),
             theme: Theme.get(theme)
         };
         this.resize();
@@ -11,12 +15,12 @@ class Simulation {
             height: this.renderer.stage.canvas.height
         };
         this.ep = new EntityProcessor({ entityConfig, dimensions: this.dimensions });
-        createjs.Ticker.framerate = framerate;
+        Ticker.framerate = framerate;
     }
     render() { }
     run() {
         this.render();
-        createjs.Ticker.addEventListener('tick', () => {
+        Ticker.addEventListener('tick', () => {
             this.ep.step({ renderer: this.renderer, dimensions: this.dimensions });
             this.renderer.stage.update();
         });

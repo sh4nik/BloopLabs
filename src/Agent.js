@@ -1,3 +1,9 @@
+import Util from './Util';
+import Brain from './Brain';
+import Edible from './Edible';
+import { Shape } from "@createjs/easeljs";
+import p5 from 'p5';
+
 class Agent {
     constructor({
         isActive = true,
@@ -27,8 +33,8 @@ class Agent {
         this.agroRate = agroRate;
         this.maxSpeed = 2;
         this.position = position;
-        this.velocity = _p5.createVector(0, 0);
-        this.acceleration = _p5.createVector(0, 0);
+        this.velocity = Util.createVector(0, 0);
+        this.acceleration = Util.createVector(0, 0);
         this.matingRate = matingRate;
         this.mutationRate = mutationRate;
         this.brain = brain || new Brain({
@@ -53,14 +59,18 @@ class Agent {
     }
     render(entities, renderer) {
         if (renderer && !this.shape) {
-            this.shape = new createjs.Shape();
+            this.shape = new Shape();
             renderer.stage.addChild(this.shape);
         }
         if (this.isActive) {
             this.shape.x = this.position.x;
             this.shape.y = this.position.y;
             let bodyColor = this.isAgro ? renderer.theme.agroAgentBodyColor : renderer.theme.agentBodyColor;
-            this.shape.graphics.clear().setStrokeStyle(3).beginStroke(renderer.theme.agentOutlineColor).beginFill(bodyColor).drawCircle(0, 0, this.size);
+            this.shape.graphics.clear()
+                .setStrokeStyle(3)
+                .beginStroke(renderer.theme.agentOutlineColor)
+                .beginFill(bodyColor)
+                .drawCircle(0, 0, this.size);
         } else {
             renderer.stage.removeChild(this.shape);
         }

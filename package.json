@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/sh4nik/BloopLabs#readme",
   "dependencies": {
+    "@createjs/easeljs": "^2.0.0-beta.4",
+    "convnetjs": "^0.3.0",
     "createjs": "^1.0.1",
     "encog": "^1.5.1",
     "encog-node": "^0.3.0",

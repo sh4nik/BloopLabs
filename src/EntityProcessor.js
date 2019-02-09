@@ -1,3 +1,5 @@
+import Util from './Util';
+
 class EntityProcessor {
     constructor({ entityConfig, dimensions }) {
         this.dimensions = dimensions;
@@ -40,7 +42,7 @@ class EntityProcessor {
             }
             const existingEntities = this.entities.filter(e => e instanceof Entity && e.groupId === groupId);
             for (let i = existingEntities.length; i < limit; i++) {
-                opts.position = _p5.createVector(
+                opts.position = Util.createVector(
                     Util.random(this.dimensions.width),
                     Util.random(this.dimensions.height)
                 );

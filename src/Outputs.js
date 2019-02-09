@@ -1,14 +1,16 @@
+import Util from './Util';
+
 let Outputs = {
     desiredForceX: {
         displayName: 'Desired Force X',
         process: (val, agent) => {
-            agent.applyForce(_p5.createVector(val, 0).mult(agent.maxSpeed));
+            agent.applyForce(Util.createVector(val, 0).mult(agent.maxSpeed));
         }
     },
     desiredForceY: {
         displayName: 'Desired Force Y',
         process: (val, agent) => {
-            agent.applyForce(_p5.createVector(0, val).mult(agent.maxSpeed));
+            agent.applyForce(Util.createVector(0, val).mult(agent.maxSpeed));
         }
     },
     acceleration: {
