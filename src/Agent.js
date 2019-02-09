@@ -48,8 +48,7 @@ class Agent {
           'nearestEdibleY',
           'nearestEdibleIsPoison'
         ],
-        outputs: ['desiredForceX', 'desiredForceY', 'acceleration', 'agro'],
-        midLayerNodes: 8
+        outputs: ['desiredForceX', 'desiredForceY', 'acceleration', 'agro']
       });
   }
   step (entities, incubator, dimensions) {

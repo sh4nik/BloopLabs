@@ -22,11 +22,19 @@
           theme: "bloop",
           entityConfig: [
             {
-              groupId: "normies",
+              groupId: "normie",
               Entity: BloopLabs.Agent,
-              count: 60,
-              max: 100,
+              count: 30,
+              max: 80,
               min: 20,
+              opts: { size: 8 }
+            },
+            {
+              groupId: "eli",
+              Entity: BloopLabs.Agent,
+              count: 15,
+              max: 15,
+              min: 2,
               opts: { size: 8, brain: eli }
             },
             {
