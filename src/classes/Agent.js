@@ -97,13 +97,6 @@ class Agent extends Entity {
   think (env, entities) {
     this.brain.compute(env, this, entities);
   }
-  seek (target) {
-    let desired = p5.Vector.sub(target.position, this.position);
-    desired.normalize();
-    desired.mult(this.maxSpeed);
-    let steer = p5.Vector.sub(desired, this.velocity);
-    this.applyForce(steer);
-  }
   updateStats () {
     this.age += 1;
     this.health -= this.healthDrain * (this.isAgro ? this.agroDrain : 1);
