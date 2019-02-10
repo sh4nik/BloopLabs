@@ -16,7 +16,7 @@ class Theme {
         poisonColor: '#444',
         agentBodyColor: '#005c25',
         agentOutlineColor: '#000',
-        // edibleOutlineColor: '#000',
+        edibleOutlineColor: null,
         agroAgentBodyColor: '#740028'
       },
       halloween: {
@@ -25,7 +25,7 @@ class Theme {
         poisonColor: '#444',
         agentBodyColor: '#f7e200',
         agentOutlineColor: '#000',
-        // edibleOutlineColor: '#000',
+        edibleOutlineColor: null,
         agroAgentBodyColor: '#f4561c'
       },
       bloop: {

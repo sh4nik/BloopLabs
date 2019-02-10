@@ -1,43 +1,30 @@
 import Util from './Util';
 import Brain from './Brain';
 import Edible from './Edible';
+import Entity from './Entity';
 import p5 from 'p5';
 
-class Agent {
-  constructor ({
-    isActive = true,
-    groupId,
-    age = 0,
-    position,
-    matingRate = 0.01,
-    mutationRate = 0.1,
-    health = 500,
-    healthDrain = 1,
-    agroDrain = 2,
-    healthImpact = 1300,
-    size = 6,
-    isAgro = false,
-    agroRate = -0.8,
-    brain
-  }) {
-    this.isActive = isActive;
-    this.groupId = groupId;
-    this.age = age;
-    this.health = health;
-    this.healthDrain = healthDrain;
-    this.agroDrain = agroDrain;
-    this.healthImpact = healthImpact;
-    this.size = size;
-    this.isAgro = isAgro;
-    this.agroRate = agroRate;
-    this.maxSpeed = 2;
-    this.position = position;
+class Agent extends Entity {
+  constructor (opts) {
+    super(opts);
+    this.classRef = opts.classRef || Agent;
+    this.opts = opts;
+    this.sortRank = opts.sortRank || 1;
+    this.age = opts.age || 0;
+    this.health = opts.health || 500;
+    this.healthDrain = opts.healthDrain || 1;
+    this.agroDrain = opts.agroDrain || 2;
+    this.healthImpact = opts.healthImpact || 1300;
+    this.size = opts.size || 10;
+    this.isAgro = opts.isAgro;
+    this.agroRate = opts.agroRate || -0.8;
+    this.maxSpeed = opts.maxSpeed || 2;
     this.velocity = Util.createVector(0, 0);
     this.acceleration = Util.createVector(0, 0);
-    this.matingRate = matingRate;
-    this.mutationRate = mutationRate;
+    this.matingRate = opts.matingRate || 0.01;
+    this.mutationRate = opts.mutationRate || 0.1;
     this.brain =
-      brain ||
+      opts.brain ||
       new Brain({
         inputs: [
           'nearestAgentX',
@@ -64,7 +51,7 @@ class Agent {
     this.handleMating(env.agents, incubator);
     Util.wrapAround(this.position, dimensions);
   }
-  render (entities, renderer) {
+  render (renderer, entities) {
     renderer.stage.push();
     renderer.stage.translate(this.position.x, this.position.y);
     renderer.stage.rotate(this.velocity.heading() + renderer.stage.PI / 2);
@@ -165,18 +152,18 @@ class Agent {
     const position = this.position.copy();
     position.x += 20;
     position.y += 20;
-    return new Agent({
+    return new this.classRef({
       brain: this.brain.mate(partner.brain),
       position,
-      groupId: this.groupId,
-      healthDrain: this.healthDrain,
-      agroDrain: this.agroDrain,
-      healthImpact: this.healthImpact,
-      size: this.size,
-      agroRate: this.agroRate,
-      maxSpeed: this.maxSpeed,
-      matingRate: this.matingRate,
-      mutationRate: this.mutationRate
+      group: this.opts.group,
+      healthDrain: this.opts.healthDrain,
+      agroDrain: this.opts.agroDrain,
+      healthImpact: this.opts.healthImpact,
+      size: this.opts.size,
+      agroRate: this.opts.agroRate,
+      maxSpeed: this.opts.maxSpeed,
+      matingRate: this.opts.matingRate,
+      mutationRate: this.opts.mutationRate
     });
   }
   prepEnvironment (entities) {

@@ -1,5 +1,3 @@
-import Poison from './Poison';
-
 let Inputs = {
   nearestAgentX: {
     displayName: 'Nearest Agent X',
@@ -34,7 +32,7 @@ let Inputs = {
   nearestEdibleIsPoison: {
     displayName: 'Nearest Edible Food/Poison',
     process: (env, agent, entities) => {
-      return env.nearestEdible instanceof Poison ? 1 : -1;
+      return env.nearestEdible.healthImpact < 0 ? 1 : -1;
     }
   }
 };

@@ -1,10 +1,21 @@
+import Entity from './Entity';
 import Edible from './Edible';
-import Food from './Food';
-import Poison from './Poison';
-import Brain from './Brain';
-import Simulation from './Simulation';
 import Agent from './Agent';
+import Brain from './Brain';
+import Inputs from './Inputs';
+import Outputs from './Outputs';
+import Theme from './Theme';
+import Simulation from './Simulation';
 
 (function (window) {
-  window.BloopLabs = { Edible, Food, Poison, Brain, Simulation, Agent };
+  window.BloopLabs = {
+    Entity,
+    Edible,
+    Agent,
+    Brain,
+    Inputs,
+    Outputs,
+    Theme,
+    Simulation
+  };
 })(window);

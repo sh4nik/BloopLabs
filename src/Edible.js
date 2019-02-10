@@ -1,13 +1,14 @@
-class Edible {
-  constructor ({ isActive = true, position, groupId }) {
-    this.isActive = isActive;
-    this.groupId = groupId;
-    this.position = position;
-    this.size = 4;
-    this.healthImpact = 0;
+import Entity from './Entity';
+
+class Edible extends Entity {
+  constructor (opts) {
+    super(opts);
+    this.size = opts.size || 6;
+    this.healthImpact = opts.healthImpact || 0;
+    this.themeElement = opts.themeElement;
   }
-  render (entities, renderer) {
-    renderer.stage.fill(this.getColor(renderer.theme));
+  render (renderer, entities) {
+    renderer.stage.fill(renderer.theme[this.themeElement]);
     renderer.stage.ellipse(
       this.position.x,
       this.position.y,
