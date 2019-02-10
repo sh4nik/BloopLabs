@@ -1,4 +1,5 @@
 import Util from './Util';
+import Agent from './Agent';
 
 class EntityProcessor {
   constructor ({ entityConfig, dimensions }) {
@@ -12,6 +13,7 @@ class EntityProcessor {
     this.incubator = this.limitPopulation();
     this.entities = [...this.entities, ...this.incubator];
     this.incubator = this.produceEntities();
+    this.entities.sort((a, b) => (a instanceof Agent ? 1 : -1)); // Should not refer Entity type
     this.entities.forEach(e => {
       if (e.step) e.step(this.entities, this.incubator, this.dimensions);
     });

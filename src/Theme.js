@@ -29,7 +29,7 @@ class Theme {
         agroAgentBodyColor: '#f4561c'
       },
       bloop: {
-        backgroundColor: '#223',
+        backgroundColor: '#112',
         foodColor: '#00f4b6',
         poisonColor: '#bf4fff',
         agentBodyColor: '#3de1ff',

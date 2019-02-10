@@ -1,41 +1,38 @@
-import { Stage, Ticker } from '@createjs/easeljs';
+import P5 from 'p5';
 import Theme from './Theme';
 import EntityProcessor from './EntityProcessor';
 
 class Simulation {
-  constructor ({ canvasId, entityConfig, framerate, theme }) {
-    this.renderer = {
-      stage: new Stage(canvasId),
-      theme: Theme.get(theme)
-    };
-    this.resize();
-    this.applyBackgroundColor(canvasId);
-    this.dimensions = {
-      width: this.renderer.stage.canvas.width,
-      height: this.renderer.stage.canvas.height
-    };
-    this.ep = new EntityProcessor({
-      entityConfig,
-      dimensions: this.dimensions
-    });
-    Ticker.framerate = framerate;
-  }
-  render () {}
-  run () {
-    this.render();
-    Ticker.addEventListener('tick', () => {
-      this.ep.step({ renderer: this.renderer, dimensions: this.dimensions });
-      this.renderer.stage.update();
+  constructor ({ containerId, entityConfig, framerate, theme }) {
+    this.sketch = new P5(stage => {
+      this.renderer = {
+        stage,
+        containerId,
+        theme: Theme.get(theme)
+      };
+      this.dimensions = {
+        width: stage.windowWidth,
+        height: stage.windowHeight
+      };
+      this.ep = new EntityProcessor({
+        entityConfig,
+        dimensions: this.dimensions
+      });
+      stage.frameRate(framerate);
+      stage.setup = () => this.setup();
+      stage.draw = () => this.draw();
     });
   }
-  resize () {
-    this.renderer.stage.canvas.width = window.innerWidth;
-    this.renderer.stage.canvas.height = window.innerHeight;
+  setup () {
+    let cnv = this.renderer.stage.createCanvas(
+      this.renderer.stage.windowWidth,
+      this.renderer.stage.windowHeight
+    );
+    cnv.parent(this.renderer.containerId);
   }
-  applyBackgroundColor (canvasId) {
-    document.getElementById(
-      canvasId
-    ).style.backgroundColor = this.renderer.theme.backgroundColor;
+  draw () {
+    this.renderer.stage.background(this.renderer.theme.backgroundColor);
+    this.ep.step({ renderer: this.renderer, dimensions: this.dimensions });
   }
 }
 

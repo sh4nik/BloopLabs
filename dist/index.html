@@ -17,46 +17,45 @@
           )
         );
         const sim = new BloopLabs.Simulation({
-          canvasId: "main-canvas",
+          containerId: "main",
           framerate: 30,
           theme: "bloop",
           entityConfig: [
             {
               groupId: "normie",
               Entity: BloopLabs.Agent,
-              count: 30,
-              max: 80,
+              count: 20,
+              max: 60,
               min: 20,
-              opts: { size: 8 }
+              opts: { size: 16 }
             },
             {
               groupId: "eli",
               Entity: BloopLabs.Agent,
-              count: 15,
+              count: 7,
               max: 15,
               min: 2,
-              opts: { size: 8, brain: eli }
+              opts: { size: 16, brain: eli }
             },
             {
               groupId: "poison",
               Entity: BloopLabs.Poison,
               count: 60,
-              opts: { healthImpact: -500, size: 5 }
+              opts: { healthImpact: -500, size: 8 }
             },
             {
               groupId: "food",
               Entity: BloopLabs.Food,
               count: 30,
-              opts: { healthImpact: 200, size: 4 }
+              opts: { healthImpact: 200, size: 8 }
             }
           ]
         });
-        sim.run();
       }
     </script>
   </head>
 
   <body onload="init()">
-    <canvas id="main-canvas"></canvas>
+    <div id="main"></div>
   </body>
 </html>

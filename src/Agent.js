@@ -1,7 +1,6 @@
 import Util from './Util';
 import Brain from './Brain';
 import Edible from './Edible';
-import { Shape } from '@createjs/easeljs';
 import p5 from 'p5';
 
 class Agent {
@@ -66,25 +65,42 @@ class Agent {
     Util.wrapAround(this.position, dimensions);
   }
   render (entities, renderer) {
-    if (renderer && !this.shape) {
-      this.shape = new Shape();
-      renderer.stage.addChild(this.shape);
+    renderer.stage.push();
+    renderer.stage.translate(this.position.x, this.position.y);
+    renderer.stage.rotate(this.velocity.heading() + renderer.stage.PI / 2);
+
+    let bodyColor = renderer.theme.agentBodyColor;
+    if (this.isAgro) {
+      bodyColor = renderer.theme.agroAgentBodyColor;
     }
-    if (this.isActive) {
-      this.shape.x = this.position.x;
-      this.shape.y = this.position.y;
-      let bodyColor = this.isAgro
-        ? renderer.theme.agroAgentBodyColor
-        : renderer.theme.agentBodyColor;
-      this.shape.graphics
-        .clear()
-        .setStrokeStyle(3)
-        .beginStroke(renderer.theme.agentOutlineColor)
-        .beginFill(bodyColor)
-        .drawCircle(0, 0, this.size);
-    } else {
-      renderer.stage.removeChild(this.shape);
-    }
+
+    renderer.stage.noStroke();
+    renderer.stage.fill(255, 50);
+    let tailScale = this.velocity.mag() * this.maxSpeed * 0.25;
+    renderer.stage.triangle(
+      0,
+      0,
+      (-this.size / 2) * tailScale,
+      tailScale * this.size,
+      (this.size / 2) * tailScale,
+      tailScale * this.size
+    );
+
+    renderer.stage.strokeWeight(this.size / 8);
+    renderer.stage.stroke(renderer.theme.agentOutlineColor);
+    renderer.stage.fill(bodyColor);
+    renderer.stage.ellipse(0, 0, this.size, this.size);
+
+    renderer.stage.stroke(renderer.theme.agentOutlineColor);
+    renderer.stage.line(0, 0, 0, -this.size / 2);
+
+    renderer.stage.strokeWeight(this.size / 8);
+    renderer.stage.fill(
+      this.health > 45 ? this.health : renderer.stage.color(45)
+    );
+    renderer.stage.ellipse(0, -this.size / 2, this.size / 3, this.size / 3);
+
+    renderer.stage.pop();
   }
   updateMovement () {
     this.velocity.add(this.acceleration);
