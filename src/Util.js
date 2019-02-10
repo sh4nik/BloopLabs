@@ -21,7 +21,7 @@ class Util {
     if (vector.y > dimensions.height) vector.y = 0;
   }
   static checkCollision (obj1, obj2) {
-    return obj1.position.dist(obj2.position) < obj1.size + obj2.size;
+    return obj1.position.dist(obj2.position) < obj1.size / 2 + obj2.size / 2;
   }
   static roundToDecimal (i) {
     return Math.round(i * 10) / 10;
