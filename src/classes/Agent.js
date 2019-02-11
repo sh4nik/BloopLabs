@@ -11,11 +11,17 @@ class Agent extends Entity {
     this.opts = opts;
     this.sortRank = opts.sortRank || 1;
     this.age = opts.age || 0;
+    this.minHealth = opts.minHealth || opts.health || 500;
+    this.maxHealth = opts.maxHealth || this.minHealth * 2;
+    this.health = this.maxHealth;
     this.health = opts.health || 500;
     this.healthDrain = opts.healthDrain || 1;
     this.agroDrain = opts.agroDrain || 2;
     this.healthImpact = opts.healthImpact || 1300;
-    this.size = opts.size || 10;
+    this.growthRate = opts.growthRate || 0.01;
+    this.maxSize = opts.maxSize || opts.size || 30;
+    this.minSize = opts.minSize || this.maxSize / 2;
+    this.size = this.minSize;
     this.isAgro = opts.isAgro;
     this.agroRate = opts.agroRate || -0.8;
     this.maxSpeed = opts.maxSpeed || 2;
@@ -41,6 +47,7 @@ class Agent extends Entity {
     const env = this.prepEnvironment(entities);
     this.acceleration.mult(0);
     this.updateStats();
+    this.grow();
     this.think(env, entities);
     this.updateMovement();
     if (this.isAgro) {
@@ -82,9 +89,7 @@ class Agent extends Entity {
     renderer.stage.line(0, 0, 0, -this.size / 2);
 
     renderer.stage.strokeWeight(this.size / 8);
-    renderer.stage.fill(
-      this.health > 45 ? this.health : renderer.stage.color(45)
-    );
+    renderer.stage.fill(Util.mapVal(this.health, 0, this.maxHealth, 70, 255));
     renderer.stage.ellipse(0, -this.size / 2, this.size / 3, this.size / 3);
 
     renderer.stage.pop();
@@ -99,8 +104,12 @@ class Agent extends Entity {
   }
   updateStats () {
     this.age += 1;
+    this.health = this.health > this.maxHealth ? this.maxHealth : this.health;
     this.health -= this.healthDrain * (this.isAgro ? this.agroDrain : 1);
     if (this.health <= 0) this.isActive = false;
+  }
+  grow () {
+    if (this.size < this.maxSize) this.size += this.growthRate;
   }
   attemptToEat (entity) {
     if (Util.checkCollision(this, entity)) {

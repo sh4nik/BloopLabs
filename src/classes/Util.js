@@ -29,6 +29,9 @@ class Util {
   static createVector (x, y) {
     return Util._p5.createVector(x, y);
   }
+  static mapVal (val, valMin, valMax, min, max) {
+    return Util._p5.map(val, valMin, valMax, min, max);
+  }
 }
 
 Util._p5 = new P5();

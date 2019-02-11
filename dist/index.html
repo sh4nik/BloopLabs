@@ -10,28 +10,7 @@
       }
     </style>
     <script>
-      // Example of custom Agent
-      class Loony extends BloopLabs.Agent {
-        constructor(opts) {
-          super(opts);
-        }
-        render(renderer) {
-          renderer.stage.fill("#666");
-          renderer.stage.ellipse(
-            this.position.x,
-            this.position.y,
-            this.size,
-            this.size
-          );
-        }
-      }
       function init() {
-        //Example of preloaded brain
-        const eli = new BloopLabs.Brain(
-          JSON.parse(
-            '{"inputs":["nearestAgentX","nearestAgentY","nearestAgentIsAgro","nearestEdibleX","nearestEdibleY","nearestEdibleIsPoison"],"outputs":["desiredForceX","desiredForceY","acceleration","agro"],"weights":[0.020447252448355102,0.06704935737398986,-0.22486913100357814,0.43995375678364146,0.3451008232047822,0.42978176879045543,-0.6375136561033391,-0.3875740327708344,-0.05952513560534432,-0.14777426034287716,0.3927533677992939,-0.6480266822452636,0.1217301606661436,0.22806134043547516,0.06157420421204183,-0.3360233100996386,0.2997189469691207,-0.18503714437027932,0.24526890160103498,-0.028288991044905714,0.7542170524575768,0.38976564255632284,0.20161405832216,0.001334719075793708,0,0,0,0]}'
-          )
-        );
         const sim = new BloopLabs.Simulation({
           containerId: "main",
           framerate: 30,
@@ -40,24 +19,10 @@
             {
               group: "normie",
               Entity: BloopLabs.Agent,
-              count: 20,
+              count: 30,
               max: 60,
               min: 20,
-              opts: { size: 16 }
-            },
-            {
-              group: "eli",
-              Entity: BloopLabs.Agent,
-              count: 7,
-              max: 15,
-              min: 2,
-              opts: { size: 16, brain: eli }
-            },
-            {
-              group: "loony",
-              Entity: Loony,
-              count: 1,
-              opts: { size: 8 }
+              opts: {}
             },
             {
               group: "poison",
