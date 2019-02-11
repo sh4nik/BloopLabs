@@ -28,7 +28,7 @@ class Theme {
         edibleOutlineColor: null,
         agroAgentBodyColor: '#f4561c'
       },
-      bloop: {
+      original: {
         backgroundColor: '#112',
         foodColor: '#00f4b6',
         poisonColor: '#bf4fff',
