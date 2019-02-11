@@ -7,15 +7,4 @@ import Outputs from './classes/Outputs';
 import Theme from './classes/Theme';
 import Simulation from './classes/Simulation';
 
-(function (window) {
-  window.BloopLabs = {
-    Entity,
-    Edible,
-    Agent,
-    Brain,
-    Inputs,
-    Outputs,
-    Theme,
-    Simulation
-  };
-})(window);
+export { Entity, Edible, Agent, Brain, Inputs, Outputs, Theme, Simulation };

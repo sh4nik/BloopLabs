@@ -4,7 +4,10 @@ const config = {
   entry: [path.resolve(__dirname, 'src/index.js')],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'blooplabs.js'
+    filename: 'blooplabs.js',
+    library: 'BloopLabs',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   node: { fs: 'empty' },
   module: {
