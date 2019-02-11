@@ -1,15 +1,18 @@
 const path = require('path');
-const config = {
-  mode: 'development',
-  entry: [path.resolve(__dirname, 'src/index.js')],
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+module.exports = {
+  entry: {
+    app: './src/index.js'
+  },
+  plugins: [new CleanWebpackPlugin(['dist/*.js'])],
   output: {
+    filename: 'BloopLabs.js',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'blooplabs.js',
     library: 'BloopLabs',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
-  node: { fs: 'empty' },
   module: {
     rules: [
       {
@@ -19,20 +22,18 @@ const config = {
         query: {
           presets: ['es2015']
         }
+      },
+      {
+        test: /(\.jsx|\.js)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        options: {
+          fix: true
+        }
       }
     ]
   },
   resolve: {
     extensions: ['.js']
-  },
-  devServer: {
-    port: 3000,
-    contentBase: __dirname + '/dist',
-    inline: true
-  },
-  stats: {
-    colors: true
   }
 };
-
-module.exports = config;

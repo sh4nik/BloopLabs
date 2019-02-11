@@ -54,7 +54,7 @@ class EntityProcessor {
           Util.random(this.dimensions.height)
         );
         opts.group = group;
-        opts.classRef = Entity;
+        opts.ClassRef = Entity;
         entities.push(new Entity(opts));
       }
     });

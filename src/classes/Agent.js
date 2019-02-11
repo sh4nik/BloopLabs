@@ -2,12 +2,12 @@ import Util from './Util';
 import Brain from './Brain';
 import Edible from './Edible';
 import Entity from './Entity';
-import p5 from 'p5';
+import P5 from 'p5';
 
 class Agent extends Entity {
   constructor (opts) {
     super(opts);
-    this.classRef = opts.classRef || Agent;
+    this.ClassRef = opts.ClassRef || Agent;
     this.opts = opts;
     this.sortRank = opts.sortRank || 1;
     this.age = opts.age || 0;
@@ -145,7 +145,7 @@ class Agent extends Entity {
     const position = this.position.copy();
     position.x += 20;
     position.y += 20;
-    return new this.classRef({
+    return new this.ClassRef({
       brain: this.brain.mate(partner.brain),
       position,
       group: this.opts.group,
@@ -165,11 +165,11 @@ class Agent extends Entity {
     let nearestAgentVector = null;
     if (agents.length) {
       nearestAgent = Util.findNearest(this, agents);
-      let desiredVectorToAgent = p5.Vector.sub(
+      let desiredVectorToAgent = P5.Vector.sub(
         nearestAgent.position,
         this.position
       );
-      nearestAgentVector = p5.Vector.sub(desiredVectorToAgent, this.velocity);
+      nearestAgentVector = P5.Vector.sub(desiredVectorToAgent, this.velocity);
       nearestAgentVector.normalize();
     }
     let edibles = entities.filter(e => e instanceof Edible);
@@ -177,11 +177,11 @@ class Agent extends Entity {
     let nearestEdibleVector = null;
     if (edibles.length) {
       nearestEdible = Util.findNearest(this, edibles);
-      let desiredVectorToEdible = p5.Vector.sub(
+      let desiredVectorToEdible = P5.Vector.sub(
         nearestEdible.position,
         this.position
       );
-      nearestEdibleVector = p5.Vector.sub(desiredVectorToEdible, this.velocity);
+      nearestEdibleVector = P5.Vector.sub(desiredVectorToEdible, this.velocity);
       nearestEdibleVector.normalize();
     }
     return {
