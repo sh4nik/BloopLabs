@@ -24,6 +24,7 @@ class Simulation {
     });
   }
   setup () {
+    document.getElementById('defaultCanvas0').remove();
     let cnv = this.renderer.stage.createCanvas(
       this.renderer.stage.windowWidth,
       this.renderer.stage.windowHeight
