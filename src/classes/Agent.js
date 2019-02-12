@@ -25,6 +25,7 @@ class Agent extends Entity {
     this.isAgro = opts.isAgro;
     this.agroRate = opts.agroRate || -0.8;
     this.maxSpeed = opts.maxSpeed || 2.2;
+    this.maxSteering = opts.maxSteering || 0.1;
     this.velocity = Util.createVector(0, 0);
     this.acceleration = Util.createVector(0, 0);
     this.matingRate = opts.matingRate || 0.01;
