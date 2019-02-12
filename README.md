@@ -1,6 +1,6 @@
 # BloopLabs
 
-BloopLabs is an easy-to-use laboratory for evolving artificial neural networks by simulating virtual creatures in controlled environments.
+BloopLabs is an easy-to-use laboratory for evolving artificial neural networks by simulating virtual creatures in a controlled environment.
 
 To get started all you need to do is open your terminal and enter the following commands.
 
