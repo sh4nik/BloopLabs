@@ -11,6 +11,18 @@
         padding: 0px;
         display: flex;
       }
+      input {
+        position: absolute;
+        background: #555;
+        border: none;
+        margin: 40px 10px;
+        font-family: monospace;
+        border-radius: 2px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #00acd2;
+        font-size: 18px;
+      }
     </style>
     <script>
       let eater = new BloopLabs.Brain(
@@ -20,7 +32,7 @@
       );
 
       function init() {
-        const sim = new BloopLabs.Simulation({
+        sim = new BloopLabs.Simulation({
           containerId: "main",
           framerate: 30,
           theme: "buttercup",
@@ -52,6 +64,7 @@
   </head>
 
   <body onload="init()">
+    <input type="button" onclick="sim.toggleRenderer()" value=">>" />
     <div id="main"></div>
   </body>
 </html>

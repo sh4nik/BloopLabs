@@ -7,6 +7,7 @@ class EntityProcessor {
     this.entities = [];
     this.incubator = [];
     this.initialized = false;
+    this.stepCount = 0;
   }
   step ({ renderer }) {
     this.incubator = this.limitPopulation();
@@ -22,6 +23,7 @@ class EntityProcessor {
       });
     }
     this.entities = this.entities.filter(e => e.isActive);
+    this.stepCount += 1;
   }
   limitPopulation () {
     this.config.forEach(({ group, Entity, count, max, min, opts }) => {
