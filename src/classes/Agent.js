@@ -24,7 +24,7 @@ class Agent extends Entity {
     this.size = this.minSize;
     this.isAgro = opts.isAgro;
     this.agroRate = opts.agroRate || -0.8;
-    this.maxSpeed = opts.maxSpeed || 2;
+    this.maxSpeed = opts.maxSpeed || 2.2;
     this.velocity = Util.createVector(0, 0);
     this.acceleration = Util.createVector(0, 0);
     this.matingRate = opts.matingRate || 0.01;
@@ -70,7 +70,7 @@ class Agent extends Entity {
 
     renderer.stage.noStroke();
     renderer.stage.fill(255, 50);
-    let tailScale = this.velocity.mag() * this.maxSpeed * 0.25;
+    let tailScale = this.velocity.mag() * 0.4;
     renderer.stage.triangle(
       0,
       0,
@@ -89,7 +89,9 @@ class Agent extends Entity {
     renderer.stage.line(0, 0, 0, -this.size / 2);
 
     renderer.stage.strokeWeight(this.size / 8);
-    renderer.stage.fill(Util.mapVal(this.health, 0, this.maxHealth, 70, 255));
+    renderer.stage.fill(
+      Util.mapVal(this.health < 0 ? 0 : this.health, 0, this.maxHealth, 70, 255)
+    );
     renderer.stage.ellipse(0, -this.size / 2, this.size / 3, this.size / 3);
 
     renderer.stage.pop();

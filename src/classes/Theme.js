@@ -29,12 +29,12 @@ class Theme {
         agroAgentBodyColor: '#f4561c'
       },
       scy: {
-        backgroundColor: '#222',
+        backgroundColor: '#1d2127',
         foodColor: '#00aace',
         poisonColor: '#6f23b4',
         agentBodyColor: '#53c285',
-        agentOutlineColor: '#222',
-        edibleOutlineColor: '#222',
+        agentOutlineColor: '#1d2127',
+        edibleOutlineColor: '#1d2127',
         agroAgentBodyColor: '#b456d0'
       },
       original: {
