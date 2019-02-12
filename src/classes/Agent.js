@@ -63,10 +63,28 @@ class Agent extends Entity {
     renderer.stage.push();
     renderer.stage.translate(this.position.x, this.position.y);
     renderer.stage.rotate(this.velocity.heading() + renderer.stage.PI / 2);
+    renderer.stage.noFill();
 
     let bodyColor = renderer.theme.agentBodyColor;
     if (this.isAgro) {
       bodyColor = renderer.theme.agroAgentBodyColor;
+      renderer.stage.fill(renderer.theme.agroAgentFangColor);
+      renderer.stage.triangle(
+        -this.size / 2,
+        -this.size / 5,
+        0,
+        -this.size / 2,
+        -this.size / 4,
+        -this.size
+      );
+      renderer.stage.triangle(
+        this.size / 2,
+        -this.size / 5,
+        0,
+        -this.size / 2,
+        this.size / 4,
+        -this.size
+      );
     }
 
     renderer.stage.noStroke();

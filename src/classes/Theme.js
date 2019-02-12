@@ -8,7 +8,8 @@ class Theme {
         agentBodyColor: '#e29e00',
         agentOutlineColor: '#1a3c54',
         edibleOutlineColor: '#1a3c54',
-        agroAgentBodyColor: '#f96b0e'
+        agroAgentBodyColor: '#f96b0e',
+        agroAgentFangColor: '#0cd6b3'
       },
       jah: {
         backgroundColor: '#100600',
@@ -16,8 +17,9 @@ class Theme {
         poisonColor: '#777',
         agentBodyColor: '#006b2a',
         agentOutlineColor: '#000',
-        edibleOutlineColor: null,
-        agroAgentBodyColor: '#740028'
+        edibleOutlineColor: '#100600',
+        agroAgentBodyColor: '#740028',
+        agroAgentFangColor: '#e6cf10'
       },
       halloween: {
         backgroundColor: '#000',
@@ -25,17 +27,19 @@ class Theme {
         poisonColor: '#444',
         agentBodyColor: '#f7e200',
         agentOutlineColor: '#000',
-        edibleOutlineColor: null,
-        agroAgentBodyColor: '#f4561c'
+        edibleOutlineColor: '#000',
+        agroAgentBodyColor: '#f4561c',
+        agroAgentFangColor: '#20d8d2'
       },
-      scy: {
-        backgroundColor: '#1d2127',
+      buttercup: {
+        backgroundColor: '#171b21',
         foodColor: '#00aace',
         poisonColor: '#6f23b4',
         agentBodyColor: '#53c285',
-        agentOutlineColor: '#1d2127',
-        edibleOutlineColor: '#1d2127',
-        agroAgentBodyColor: '#b456d0'
+        agentOutlineColor: '#171b21',
+        edibleOutlineColor: '#171b21',
+        agroAgentBodyColor: '#b456d0',
+        agroAgentFangColor: '#00aace'
       },
       original: {
         backgroundColor: '#112',
@@ -44,7 +48,8 @@ class Theme {
         agentBodyColor: '#3de1ff',
         agentOutlineColor: '#112',
         edibleOutlineColor: '#000',
-        agroAgentBodyColor: '#ff5588'
+        agroAgentBodyColor: '#ff5588',
+        agroAgentFangColor: '#00f4b6'
       }
     };
     return themes[theme];
