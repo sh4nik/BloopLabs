@@ -16,7 +16,7 @@ let Outputs = {
   acceleration: {
     displayName: 'Acceleration',
     process: (val, agent) => {
-      agent.applyForce(agent.acceleration.mult(val));
+      agent.applyForce(agent.acceleration.mult(val).limit(0.1));
     }
   },
   agro: {

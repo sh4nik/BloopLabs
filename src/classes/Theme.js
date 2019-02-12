@@ -11,10 +11,10 @@ class Theme {
         agroAgentBodyColor: '#f96b0e'
       },
       jah: {
-        backgroundColor: '#000',
+        backgroundColor: '#100600',
         foodColor: '#e6cf10',
-        poisonColor: '#444',
-        agentBodyColor: '#005c25',
+        poisonColor: '#777',
+        agentBodyColor: '#006b2a',
         agentOutlineColor: '#000',
         edibleOutlineColor: null,
         agroAgentBodyColor: '#740028'
@@ -28,12 +28,21 @@ class Theme {
         edibleOutlineColor: null,
         agroAgentBodyColor: '#f4561c'
       },
+      scy: {
+        backgroundColor: '#222',
+        foodColor: '#00aace',
+        poisonColor: '#6f23b4',
+        agentBodyColor: '#53c285',
+        agentOutlineColor: '#222',
+        edibleOutlineColor: '#222',
+        agroAgentBodyColor: '#b456d0'
+      },
       original: {
         backgroundColor: '#112',
         foodColor: '#00f4b6',
         poisonColor: '#bf4fff',
         agentBodyColor: '#3de1ff',
-        agentOutlineColor: '#000',
+        agentOutlineColor: '#112',
         edibleOutlineColor: '#000',
         agroAgentBodyColor: '#ff5588'
       }
