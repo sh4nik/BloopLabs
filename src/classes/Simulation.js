@@ -1,5 +1,6 @@
 import P5 from 'p5';
 import Theme from './Theme';
+import Agent from './Agent';
 import EntityProcessor from './EntityProcessor';
 
 class Simulation {
@@ -52,11 +53,28 @@ class Simulation {
     setTimeout(() => this.render || this.runInMem());
   }
   showInfo () {
+    let agents = this.ep.entities.filter(e => e instanceof Agent);
+    let oldest = 0;
+    if (agents.length) {
+      oldest = agents.reduce((prev, curr) => {
+        const currentIsOlder = curr.age > prev.age;
+        return currentIsOlder ? curr : prev;
+      });
+    }
     this.renderer.stage.fill(30);
-    this.renderer.stage.rect(5, 10, 100, 20);
+    this.renderer.stage.rect(5, 10, 200, 20);
     this.renderer.stage.fill(100);
     this.renderer.stage.stroke(0);
-    this.renderer.stage.text('Step: ' + this.ep.stepCount, 10, 25);
+    this.renderer.stage.text(
+      'Step: ' +
+        this.ep.stepCount +
+        '  Pop: ' +
+        agents.length +
+        '  Oldest: ' +
+        oldest.age,
+      10,
+      25
+    );
   }
 }
 

@@ -15,7 +15,7 @@ class Agent extends Entity {
     this.maxHealth = opts.maxHealth || this.minHealth * 2;
     this.health = this.maxHealth;
     this.health = opts.health || 500;
-    this.healthDrain = opts.healthDrain || 1;
+    this.healthDrain = opts.healthDrain || 3;
     this.agroDrain = opts.agroDrain || 2;
     this.healthImpact = opts.healthImpact || 1300;
     this.growthRate = opts.growthRate || 0.01;
@@ -28,7 +28,8 @@ class Agent extends Entity {
     this.maxSteering = opts.maxSteering || 0.1;
     this.velocity = Util.createVector(0, 0);
     this.acceleration = Util.createVector(0, 0);
-    this.matingRate = opts.matingRate || 0.01;
+    this.matingAge = opts.matingAge || 50;
+    this.matingRate = opts.matingRate || 0.007;
     this.mutationRate = opts.mutationRate || 0.1;
     this.brain =
       opts.brain ||
@@ -142,7 +143,7 @@ class Agent extends Entity {
     return this.healthImpact;
   }
   handleMating (agents, incubator) {
-    if (Util.random(1) < this.matingRate) {
+    if (this.age > this.matingAge && Util.random(1) < this.matingRate) {
       let partner = this.findMate(agents);
       if (partner) {
         let child = this.mate(partner);
