@@ -2,7 +2,7 @@
 
 BloopLabs is an easy-to-use laboratory for evolving artificial neural networks by simulating virtual creatures in a controlled environment.
 
-### [Click here to start!](./dist)
+### [Click here to start!](https://sh4nik.github.io/BloopLabs/dist)
 
 ## Development
 
