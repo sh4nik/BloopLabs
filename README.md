@@ -4,7 +4,9 @@ BloopLabs is an easy-to-use laboratory for evolving artificial neural networks b
 
 ### [Click here to start!](./dist)
 
-To get started all you need to do is open your terminal and enter the following commands.
+## Development
+
+To start experimenting with the Javascript library all you need to do is open your terminal and enter the following commands.
 
 > **Note:** You need to have [Node.js](https://nodejs.org/en/) and [Git](https://git-scm.com/) installed to proceed!
 
