@@ -4,12 +4,19 @@ import Util from './Util';
 const convnetjs = require('convnetjs');
 
 class Brain {
-  constructor ({ inputs = [], outputs = [], weights }) {
+  constructor ({ inputs = [], outputs = [], weights, recurrent = true }) {
     this.inputs = inputs;
     this.outputs = outputs;
+    this.recurrent = recurrent;
     this.net = new convnetjs.Net();
     this.net.makeLayers([
-      { type: 'input', out_sx: 1, out_sy: 1, out_depth: this.inputs.length },
+      {
+        type: 'input',
+        out_sx: 1,
+        out_sy: 1,
+        out_depth:
+          this.inputs.length + (this.recurrent ? this.outputs.length : 0)
+      },
       { type: 'fc', num_neurons: this.outputs.length, activation: 'tanh' }
     ]);
     if (weights) {
@@ -20,10 +27,17 @@ class Brain {
     let inputValues = this.inputs.map(i =>
       Inputs[i].process(env, agent, entities)
     );
-    var inputVol = new convnetjs.Vol(inputValues);
-    var outputVol = this.net.forward(inputVol);
+    if (this.recurrent) {
+      if (this.outputVol) {
+        this.outputVol.w.map(o => inputValues.push(o));
+      } else {
+        this.outputs.map(() => inputValues.push(Math.random(-1, 1)));
+      }
+    }
+    let inputVol = new convnetjs.Vol(inputValues);
+    this.outputVol = this.net.forward(inputVol);
     this.outputs.map((o, index) =>
-      Outputs[o].process(outputVol.w[index], agent)
+      Outputs[o].process(this.outputVol.w[index], agent)
     );
   }
   extract () {
