@@ -11,17 +11,25 @@
         padding: 0px;
         display: flex;
       }
-      input {
+      .button {
         position: absolute;
-        background: #555;
+        background: #333;
         border: none;
-        margin: 40px 10px;
+        margin: 40px 5px;
         font-family: monospace;
         border-radius: 2px;
         font-weight: bold;
         cursor: pointer;
         color: #00acd2;
-        font-size: 18px;
+        font-size: 12px;
+        padding: 5px;
+      }
+      .button:hover {
+        margin: 39px 4px;
+        padding: 6px;
+      }
+      .button:active {
+        color: #666;
       }
     </style>
     <script>
@@ -64,7 +72,7 @@
   </head>
 
   <body onload="init()">
-    <input type="button" onclick="sim.toggleRenderer()" value=">>" />
+    <div class="button" onclick="sim.toggleRenderer()">Speed</div>
     <div id="main"></div>
   </body>
 </html>
