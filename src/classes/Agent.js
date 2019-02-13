@@ -74,7 +74,7 @@ class Agent extends Entity {
         -this.size / 5,
         0,
         -this.size / 2,
-        -this.size / 4,
+        -this.size / 9,
         -this.size
       );
       renderer.stage.triangle(
@@ -82,7 +82,7 @@ class Agent extends Entity {
         -this.size / 5,
         0,
         -this.size / 2,
-        this.size / 4,
+        this.size / 9,
         -this.size
       );
     }
