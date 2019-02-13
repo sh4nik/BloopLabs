@@ -31,7 +31,7 @@ class Theme {
         agroAgentBodyColor: '#f4561c',
         agroAgentFangColor: '#20d8d2'
       },
-      buttercup: {
+      mojojojo: {
         backgroundColor: '#171b21',
         foodColor: '#00aace',
         poisonColor: '#6f23b4',
