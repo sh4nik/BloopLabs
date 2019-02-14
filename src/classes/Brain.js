@@ -44,7 +44,8 @@ class Brain {
     return {
       inputs: [...this.inputs],
       outputs: [...this.outputs],
-      weights: [...Brain.getGeneFromNetwork(this.net)]
+      weights: [...Brain.getGeneFromNetwork(this.net)],
+      recurrent: this.recurrent
     };
   }
   clone () {
