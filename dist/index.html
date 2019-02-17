@@ -1,84 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>BloopLabs - Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="BloopLabs.js" type="text/javascript"></script>
-    <style>
-      body,
-      #main {
-        margin: 0px;
-        padding: 0px;
-        display: flex;
-      }
-      .button {
-        position: absolute;
-        background: #333;
-        border: none;
-        margin: 40px 5px;
-        font-family: monospace;
-        border-radius: 2px;
-        font-weight: bold;
-        cursor: pointer;
-        color: #00acd2;
-        font-size: 12px;
-        padding: 5px;
-      }
-      .button:hover {
-        margin: 39px 4px;
-        padding: 6px;
-      }
-      .button:active {
-        color: #666;
-      }
-    </style>
-    <script>
-      let eater = new BloopLabs.Brain(
-        JSON.parse(
-          '{"inputs":["nearestAgentX","nearestAgentY","nearestAgentIsAgro","nearestEdibleX","nearestEdibleY","nearestEdibleIsPoison"],"outputs":["desiredForceX","desiredForceY","acceleration","agro"],"weights":[-0.5615195247312951,0.7440275738835084,-0.4543137933033616,0.2510385017631777,0.3849901572292103,-0.22557275065172105,-0.08702324408997239,0.4314849086179686,-0.3545839453847389,0.4538995913358825,0.4981035188260418,-0.23028043048903213,-0.1387787994533394,0.23327244420668977,0.47912444643639673,-0.17891236370149088,-0.17735201665351358,-0.08940078799090803,-0.0550556178019573,0.04304449946769109,-0.2205106601804362,0.315013506198137,-0.11140232053277584,-0.3158120262359267,0.31024741821405405,-0.3182554869737856,0.08868192133168526,-0.2830592808784856,-0.110201696600498,-0.3056973584527793,0.18637924577519768,-0.45905552643867586,0.23141328302508843,-0.7968699401998633,-0.07909417182122476,0.15900531340421917,0.04080259481494849,-0.41595730187943863,0.8817673084825235,-0.25719510208952273,0,0,0,0]}'
-        )
-      );
 
-      function init() {
-        sim = new BloopLabs.Simulation({
-          containerId: "main",
-          framerate: 30,
-          theme: "mojojojo",
-          entityConfig: [
-            {
-              group: "eater",
-              Entity: BloopLabs.Agent,
-              count: 2,
-              opts: { brain: eater }
-            },
-            {
-              group: "normie",
-              Entity: BloopLabs.Agent,
-              count: 30,
-              max: 58,
-              min: 10,
-              opts: {}
-            },
-            {
-              group: "poison",
-              Entity: BloopLabs.Edible,
-              count: 30,
-              opts: { healthImpact: -500, size: 8, themeElement: "poisonColor" }
-            },
-            {
-              group: "food",
-              Entity: BloopLabs.Edible,
-              count: 150,
-              opts: { healthImpact: 200, size: 8, themeElement: "foodColor" }
-            }
-          ]
-        });
-      }
-    </script>
-  </head>
+<head>
+  <title>BloopLabs - Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="BloopLabs.js" type="text/javascript"></script>
+  <style>
+    body,
+    #main {
+      margin: 0px;
+      padding: 0px;
+      display: flex;
+    }
 
-  <body onload="init()">
-    <div class="button" onclick="sim.toggleRenderer()">Speed</div>
-    <div id="main"></div>
-  </body>
+    .button {
+      position: absolute;
+      background: #333;
+      border: none;
+      margin: 40px 5px;
+      font-family: monospace;
+      border-radius: 2px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #00acd2;
+      font-size: 12px;
+      padding: 5px;
+    }
+
+    .button:hover {
+      margin: 39px 4px;
+      padding: 6px;
+    }
+
+    .button:active {
+      color: #666;
+    }
+  </style>
+  <script>
+    let eater = new BloopLabs.Brain(
+      JSON.parse(
+        '{"inputs":["nearestAgentX","nearestAgentY","nearestAgentIsAgro","nearestEdibleX","nearestEdibleY","nearestEdibleIsPoison"],"outputs":["desiredForceX","desiredForceY","acceleration","agro"],"weights":[-0.5615195247312951,0.7440275738835084,-0.4543137933033616,0.2510385017631777,0.3849901572292103,-0.22557275065172105,-0.08702324408997239,0.4314849086179686,-0.3545839453847389,0.4538995913358825,0.4981035188260418,-0.23028043048903213,-0.1387787994533394,0.23327244420668977,0.47912444643639673,-0.17891236370149088,-0.17735201665351358,-0.08940078799090803,-0.0550556178019573,0.04304449946769109,-0.2205106601804362,0.315013506198137,-0.11140232053277584,-0.3158120262359267,0.31024741821405405,-0.3182554869737856,0.08868192133168526,-0.2830592808784856,-0.110201696600498,-0.3056973584527793,0.18637924577519768,-0.45905552643867586,0.23141328302508843,-0.7968699401998633,-0.07909417182122476,0.15900531340421917,0.04080259481494849,-0.41595730187943863,0.8817673084825235,-0.25719510208952273,0,0,0,0]}'
+      )
+    );
+
+    function init() {
+      sim = new BloopLabs.Simulation({
+        entityConfig: [
+          {
+            group: "eater",
+            Entity: BloopLabs.Agent,
+            count: 2,
+            opts: { brain: eater }
+          },
+          {
+            group: "normie",
+            Entity: BloopLabs.Agent,
+            count: 20,
+            max: 38,
+            min: 10,
+            opts: {}
+          },
+          {
+            group: "poison",
+            Entity: BloopLabs.Edible,
+            count: 50,
+            opts: { healthImpact: -500, themeElement: "poisonColor" }
+          },
+          {
+            group: "food",
+            Entity: BloopLabs.Edible,
+            count: 50,
+            opts: { healthImpact: 200, themeElement: "foodColor" }
+          }
+        ]
+      });
+    }
+  </script>
+</head>
+
+<body onload="init()">
+  <div class="button" onclick="sim.toggleRenderer()">Speed</div>
+  <div id="bl-sim"></div>
+</body>
+
 </html>

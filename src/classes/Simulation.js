@@ -5,12 +5,15 @@ import EntityProcessor from './EntityProcessor';
 
 class Simulation {
   constructor ({ containerId, entityConfig, framerate, theme }) {
+    this.framerate = framerate || 30;
+    this.containerId = containerId || 'bl-sim';
+    this.theme = theme || 'mojojojo';
     this.render = true;
     this.sketch = new P5(stage => {
       this.renderer = {
         stage,
         containerId,
-        theme: Theme.get(theme)
+        theme: Theme.get(this.theme)
       };
       this.dimensions = {
         width: stage.windowWidth,
@@ -20,7 +23,7 @@ class Simulation {
         entityConfig,
         dimensions: this.dimensions
       });
-      stage.frameRate(framerate);
+      stage.frameRate(this.framerate);
       stage.setup = () => this.setup();
       stage.draw = () => this.draw();
     });
@@ -66,12 +69,7 @@ class Simulation {
     this.renderer.stage.fill(100);
     this.renderer.stage.stroke(0);
     this.renderer.stage.text(
-      'Step: ' +
-        this.ep.stepCount +
-        '  Pop: ' +
-        agents.length +
-        '  Oldest: ' +
-        oldest.age,
+      `Step: ${this.ep.stepCount} Pop: ${agents.length}  Oldest: ${oldest.age}`,
       10,
       25
     );

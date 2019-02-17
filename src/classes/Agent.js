@@ -29,8 +29,8 @@ class Agent extends Entity {
     this.velocity = Util.createVector(0, 0);
     this.acceleration = Util.createVector(0, 0);
     this.matingAge = opts.matingAge || 50;
-    this.matingRate = opts.matingRate || 0.007;
-    this.mutationRate = opts.mutationRate || 0.1;
+    this.matingRate = opts.matingRate || 0.01;
+    this.mutationRate = opts.mutationRate || 0.3;
     this.brain =
       opts.brain ||
       new Brain({
@@ -194,7 +194,7 @@ class Agent extends Entity {
     let agents = entities.filter(e => e instanceof Agent);
     let nearestAgent = null;
     let nearestAgentVector = null;
-    if (agents.length) {
+    if (agents.length > 1) {
       nearestAgent = Util.findNearest(this, agents);
       let desiredVectorToAgent = P5.Vector.sub(
         nearestAgent.position,
@@ -206,7 +206,7 @@ class Agent extends Entity {
     let edibles = entities.filter(e => e instanceof Edible);
     let nearestEdible = null;
     let nearestEdibleVector = null;
-    if (edibles.length) {
+    if (edibles.length > 1) {
       nearestEdible = Util.findNearest(this, edibles);
       let desiredVectorToEdible = P5.Vector.sub(
         nearestEdible.position,

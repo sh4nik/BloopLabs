@@ -14,7 +14,7 @@ let Inputs = {
   nearestAgentIsAgro: {
     displayName: 'Nearest Agent Agro/Peaceful',
     process: (env, agent, entities) => {
-      return env.nearestAgent.isAgro ? 1 : -1;
+      return env.nearestAgent ? env.nearestAgent.isAgro ? 1 : -1 : 0;
     }
   },
   nearestEdibleX: {
