@@ -4,7 +4,7 @@ import Util from './Util';
 const convnetjs = require('convnetjs');
 
 class Brain {
-  constructor ({ inputs = [], outputs = [], weights, recurrent = true }) {
+  constructor ({ inputs = [], outputs = [], weights, recurrent = false }) {
     this.inputs = inputs;
     this.outputs = outputs;
     this.recurrent = recurrent;
