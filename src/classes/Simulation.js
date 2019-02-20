@@ -51,10 +51,12 @@ class Simulation {
       this.renderer.stage.loop();
     }
   }
-  runInMem () {
-    this.stepDebug({ dimensions: this.dimensions });
+  runInMem (steps = 0) {
+    for (let i = 0; i < steps; i++) {
+      this.stepDebug({ dimensions: this.dimensions });
+    }
     this.showInfo();
-    setTimeout(() => this.render || this.runInMem());
+    setTimeout(() => this.render || this.runInMem(100));
   }
   stepDebug ({ renderer, dimensions }) {
     let start = this.renderer.stage.millis();

@@ -12,7 +12,7 @@ class Agent extends Entity {
     this.sortRank = opts.sortRank || 1;
     this.age = opts.age || 0;
     this.minHealth = opts.minHealth || opts.health || 500;
-    this.maxHealth = opts.maxHealth || this.minHealth * 2;
+    this.maxHealth = opts.maxHealth || this.minHealth * 4;
     this.health = this.maxHealth;
     this.health = opts.health || 500;
     this.healthDrain = opts.healthDrain || 3;
