@@ -37,28 +37,36 @@
     }
   </style>
   <script>
+    let eater = new BloopLabs.Brain(JSON.parse('{"inputs":["nearestAgentX","nearestAgentY","nearestAgentIsAgro","nearestEdibleX","nearestEdibleY","nearestEdibleIsPoison"],"outputs":["desiredForceX","desiredForceY","acceleration","agro"],"weights":[-0.5514062736787011,-0.15735852202106246,0.41541092672542734,1.4529733691422346,0.0419608001235848,-0.006195636655219359,0.4057893668087196,0.032535583717202006,0.22935256356880912,0.02898881420301797,1.298082996413865,-0.38023059129288406,0.06832395570931854,-0.2964696219125613,0.13423957887295393,-0.19805356065375984,0.023822043506515133,-0.866011868803765,0.8887339482719538,0.5891265466723918,0.13927558547993982,-0.2789759488394805,-0.1523782416723235,-0.2576199090657935,0,0,0,0],"recurrent":false}'));
     function init() {
       sim = new BloopLabs.Simulation({
         entityConfig: [
           {
             group: "normie",
             Entity: BloopLabs.Agent,
-            count: 20,
-            max: 38,
-            min: 10,
+            max: 54,
+            min: 4,
+            count: 16,
             opts: {}
+          },
+          {
+            group: "eater",
+            Entity: BloopLabs.Agent,
+            max: 6,
+            count: 4,
+            opts: { brain: eater }
           },
           {
             group: "poison",
             Entity: BloopLabs.Edible,
             count: 50,
-            opts: { healthImpact: -500, themeElement: "poisonColor" }
+            opts: { healthImpact: -300, themeElement: "poisonColor" }
           },
           {
             group: "food",
             Entity: BloopLabs.Edible,
-            count: 50,
-            opts: { healthImpact: 200, themeElement: "foodColor" }
+            count: 100,
+            opts: { healthImpact: 300, themeElement: "foodColor" }
           }
         ]
       });

@@ -11,10 +11,8 @@ class Agent extends Entity {
     this.opts = opts;
     this.sortRank = opts.sortRank || 1;
     this.age = opts.age || 0;
-    this.minHealth = opts.minHealth || opts.health || 500;
-    this.maxHealth = opts.maxHealth || this.minHealth * 4;
-    this.health = this.maxHealth;
     this.health = opts.health || 500;
+    this.maxHealth = opts.maxHealth || this.health * 4;
     this.healthDrain = opts.healthDrain || 3;
     this.agroDrain = opts.agroDrain || 2;
     this.healthImpact = opts.healthImpact || 1300;
@@ -28,7 +26,7 @@ class Agent extends Entity {
     this.maxSteering = opts.maxSteering || 0.1;
     this.velocity = Util.createVector(0, 0);
     this.acceleration = Util.createVector(0, 0);
-    this.matingAge = opts.matingAge || 50;
+    this.matingAge = opts.matingAge || 500;
     this.matingRate = opts.matingRate || 0.01;
     this.mutationRate = opts.mutationRate || 0.3;
     this.brain =
