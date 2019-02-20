@@ -32,7 +32,7 @@ let Inputs = {
   nearestEdibleIsPoison: {
     displayName: 'Nearest Edible Food/Poison',
     process: (env, agent, entities) => {
-      return env.nearestEdible.healthImpact < 0 ? 1 : -1;
+      return env.nearestEdible ? env.nearestEdible.healthImpact < 0 ? 1 : -1 : 0;
     }
   }
 };
