@@ -4,19 +4,19 @@ let Outputs = {
   desiredForceX: {
     displayName: 'Desired Force X',
     process: (val, agent) => {
-      agent.applyForce(Util.createVector(val, 0).mult(agent.maxSpeed));
+      agent.applyForce(Util.createVector(val, 0));
     }
   },
   desiredForceY: {
     displayName: 'Desired Force Y',
     process: (val, agent) => {
-      agent.applyForce(Util.createVector(0, val).mult(agent.maxSpeed));
+      agent.applyForce(Util.createVector(0, val));
     }
   },
   acceleration: {
     displayName: 'Acceleration',
     process: (val, agent) => {
-      agent.applyForce(agent.acceleration.mult(val).limit(agent.maxSteering));
+      agent.applyForce(agent.acceleration.mult(val));
     }
   },
   agro: {

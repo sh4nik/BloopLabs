@@ -23,6 +23,7 @@ class Simulation {
         entityConfig,
         dimensions: this.dimensions
       });
+      P5.disableFriendlyErrors = true;
       stage.frameRate(this.framerate);
       stage.setup = () => this.setup();
       stage.draw = () => this.draw();
@@ -38,7 +39,7 @@ class Simulation {
   }
   draw () {
     this.renderer.stage.background(this.renderer.theme.backgroundColor);
-    this.ep.step({ renderer: this.renderer, dimensions: this.dimensions });
+    this.stepDebug({ renderer: this.renderer, dimensions: this.dimensions });
     this.showInfo();
   }
   toggleRenderer () {
@@ -51,9 +52,15 @@ class Simulation {
     }
   }
   runInMem () {
-    this.ep.step({ dimensions: this.dimensions });
+    this.stepDebug({ dimensions: this.dimensions });
     this.showInfo();
     setTimeout(() => this.render || this.runInMem());
+  }
+  stepDebug ({ renderer, dimensions }) {
+    let start = this.renderer.stage.millis();
+    this.ep.step({ renderer, dimensions });
+    let end = this.renderer.stage.millis();
+    this.lastStepDuration = end - start;
   }
   showInfo () {
     let agents = this.ep.entities.filter(e => e instanceof Agent);
@@ -65,11 +72,11 @@ class Simulation {
       });
     }
     this.renderer.stage.fill(30);
-    this.renderer.stage.rect(5, 10, 200, 20);
+    this.renderer.stage.rect(5, 10, 250, 20);
     this.renderer.stage.fill(100);
     this.renderer.stage.stroke(0);
     this.renderer.stage.text(
-      `Step: ${this.ep.stepCount} Pop: ${agents.length}  Oldest: ${oldest.age}`,
+      `Step: ${this.ep.stepCount} [${this.lastStepDuration.toFixed(2)} ms/s] Pop: ${agents.length}  Oldest: ${oldest.age}`,
       10,
       25
     );

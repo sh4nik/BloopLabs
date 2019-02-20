@@ -117,7 +117,7 @@ class Agent extends Entity {
     renderer.stage.pop();
   }
   updateMovement () {
-    this.velocity.add(this.acceleration);
+    this.velocity.add(this.acceleration.limit(this.maxSteering));
     this.velocity.limit(this.maxSpeed);
     this.position.add(this.velocity);
   }
