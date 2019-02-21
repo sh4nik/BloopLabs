@@ -85,7 +85,7 @@ class Simulation {
       });
     }
     this.renderer.stage.fill(30);
-    this.renderer.stage.rect(5, 10, 250, 20);
+    this.renderer.stage.rect(5, 10, 300, 20);
     this.renderer.stage.fill(100);
     this.renderer.stage.stroke(0);
     this.renderer.stage.text(
