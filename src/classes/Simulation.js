@@ -2,12 +2,14 @@ import P5 from 'p5';
 import Theme from './Theme';
 import Agent from './Agent';
 import EntityProcessor from './EntityProcessor';
+import Util from './Util';
 
 class Simulation {
-  constructor ({ containerId, entityConfig, framerate, theme }) {
+  constructor ({ containerId, entityConfig, framerate, theme, clickHandler }) {
     this.framerate = framerate || 30;
     this.containerId = containerId || 'bl-sim';
     this.theme = theme || 'mojojojo';
+    this.clickHandler = clickHandler;
     this.render = true;
     this.sketch = new P5(stage => {
       this.renderer = {
@@ -27,6 +29,7 @@ class Simulation {
       stage.frameRate(this.framerate);
       stage.setup = () => this.setup();
       stage.draw = () => this.draw();
+      stage.mousePressed = () => this.mousePressed();
     });
   }
   setup () {
@@ -41,6 +44,14 @@ class Simulation {
     this.renderer.stage.background(this.renderer.theme.backgroundColor);
     this.stepDebug({ renderer: this.renderer, dimensions: this.dimensions });
     this.showInfo();
+  }
+  mousePressed () {
+    const mousePosition = Util.createVector(
+      this.renderer.stage.mouseX,
+      this.renderer.stage.mouseY
+    );
+    const selectedEntity = this.ep.click(mousePosition);
+    if (this.clickHandler) this.clickHandler(selectedEntity);
   }
   toggleRenderer () {
     this.render = !this.render;

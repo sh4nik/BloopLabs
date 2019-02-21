@@ -36,8 +36,8 @@ class Brain {
         this.outputs.map(() => inputValues.push(Math.random(-1, 1)));
       }
     }
-    let inputVol = new convnetjs.Vol(inputValues);
-    this.outputVol = this.net.forward(inputVol);
+    this.inputVol = new convnetjs.Vol(inputValues);
+    this.outputVol = this.net.forward(this.inputVol);
     this.outputs.map((o, index) =>
       Outputs[o].process(this.outputVol.w[index], agent)
     );

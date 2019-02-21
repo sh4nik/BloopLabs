@@ -63,6 +63,14 @@ class EntityProcessor {
     this.initialized = true;
     return entities;
   }
+  click (mousePosition) {
+    this.entities.map(e => e.unselect());
+    const clickedEntity = this.entities.find(e => mousePosition.dist(e.position) <= e.size);
+    if (clickedEntity) {
+      clickedEntity.select();
+    }
+    return clickedEntity;
+  }
 }
 
 export default EntityProcessor;
