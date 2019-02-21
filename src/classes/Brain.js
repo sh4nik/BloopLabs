@@ -21,6 +21,8 @@ class Brain {
     ]);
     if (weights) {
       Brain.pushGeneToNetwork(this.net, weights);
+    } else {
+      this.roundGeneWeights();
     }
   }
   compute (env, agent, entities) {
@@ -69,6 +71,11 @@ class Brain {
     let temp = data[swap1];
     data[swap1] = data[swap2];
     data[swap2] = temp;
+    Brain.pushGeneToNetwork(this.net, data);
+  }
+  roundGeneWeights () {
+    let data = Brain.getGeneFromNetwork(this.net);
+    data = data.map(w => Number(w.toFixed(2)));
     Brain.pushGeneToNetwork(this.net, data);
   }
   static pushGeneToNetwork (net, gene) {
