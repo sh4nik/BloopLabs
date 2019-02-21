@@ -85,13 +85,13 @@ class Simulation {
       });
     }
     this.renderer.stage.fill(30);
-    this.renderer.stage.rect(5, 10, 300, 20);
-    this.renderer.stage.fill(100);
+    this.renderer.stage.rect(90, 3, 300, 20);
+    this.renderer.stage.fill('#00acd2');
     this.renderer.stage.stroke(0);
     this.renderer.stage.text(
       `Step: ${this.ep.stepCount} [${this.lastStepDuration.toFixed(2)} ms/s] Pop: ${agents.length}  Oldest: ${oldest.age}`,
-      10,
-      25
+      95,
+      17
     );
   }
 }
