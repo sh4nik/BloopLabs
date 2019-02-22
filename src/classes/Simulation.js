@@ -14,7 +14,8 @@ class Simulation {
     this.render = true;
     this.stats = new Stats();
     this.statsPanelPopulation = this.stats.addPanel(new Stats.Panel('POP', '#d9f', '#203'));
-    this.stats.showPanel(3);
+    // Note: RAM panel missing in mobile
+    this.stats.showPanel(this.stats.dom.childNodes.length - 1);
     this.sketch = new P5(stage => {
       this.renderer = {
         stage,
@@ -38,7 +39,7 @@ class Simulation {
   }
   setup () {
     document.getElementById('defaultCanvas0').remove();
-    document.body.appendChild(this.stats.dom);
+    document.getElementById(this.renderer.containerId).appendChild(this.stats.dom);
     let cnv = this.renderer.stage.createCanvas(
       this.renderer.stage.windowWidth,
       this.renderer.stage.windowHeight
