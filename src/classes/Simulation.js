@@ -13,7 +13,7 @@ class Simulation {
     this.clickHandler = clickHandler;
     this.render = true;
     this.stats = new Stats();
-    this.statsPanelPopulation = this.stats.addPanel(new Stats.Panel('POP', '#9e41f2', '#221'));
+    this.statsPanelPopulation = this.stats.addPanel(new Stats.Panel('POP', '#d9f', '#203'));
     this.stats.showPanel(3);
     this.sketch = new P5(stage => {
       this.renderer = {
@@ -38,7 +38,7 @@ class Simulation {
   }
   setup () {
     document.getElementById('defaultCanvas0').remove();
-    document.getElementById(this.renderer.containerId).appendChild(this.stats.dom);
+    document.body.appendChild(this.stats.dom);
     let cnv = this.renderer.stage.createCanvas(
       this.renderer.stage.windowWidth,
       this.renderer.stage.windowHeight
