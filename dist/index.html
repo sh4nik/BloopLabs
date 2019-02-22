@@ -5,9 +5,6 @@
   <title>BloopLabs - Demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="BloopLabs.js" type="text/javascript"></script>
-  <script>
-    (function () { var script = document.createElement('script'); script.onload = function () { var stats = new Stats(); document.body.appendChild(stats.dom); requestAnimationFrame(function loop() { stats.update(); requestAnimationFrame(loop) }); }; script.src = '//mrdoob.github.io/stats.js/build/stats.min.js'; document.head.appendChild(script); })()
-  </script>
   <style>
     body,
     #main {
@@ -20,19 +17,19 @@
       position: absolute;
       background: #333;
       border: none;
-      margin: 27px 90px;
+      margin: 60px 7px;
       font-family: monospace;
       border-radius: 2px;
       font-weight: bold;
       cursor: pointer;
       color: #00acd2;
-      font-size: 8px;
-      padding: 5px;
+      font-size: 12px;
+      padding: 5px 15px;
+      opacity: 0.8;
     }
 
     .button:hover {
-      margin: 26px 89px;
-      padding: 6px;
+      opacity: 1;
     }
 
     .button:active {

@@ -3,6 +3,7 @@ import Theme from './Theme';
 import Agent from './Agent';
 import EntityProcessor from './EntityProcessor';
 import Util from './Util';
+import Stats from 'stats.js';
 
 class Simulation {
   constructor ({ containerId, entityConfig, framerate, theme, clickHandler }) {
@@ -11,10 +12,13 @@ class Simulation {
     this.theme = theme || 'mojojojo';
     this.clickHandler = clickHandler;
     this.render = true;
+    this.stats = new Stats();
+    this.statsPanelPopulation = this.stats.addPanel(new Stats.Panel('POP', '#9e41f2', '#221'));
+    this.stats.showPanel(3);
     this.sketch = new P5(stage => {
       this.renderer = {
         stage,
-        containerId,
+        containerId: this.containerId,
         theme: Theme.get(this.theme)
       };
       this.dimensions = {
@@ -34,6 +38,7 @@ class Simulation {
   }
   setup () {
     document.getElementById('defaultCanvas0').remove();
+    document.getElementById(this.renderer.containerId).appendChild(this.stats.dom);
     let cnv = this.renderer.stage.createCanvas(
       this.renderer.stage.windowWidth,
       this.renderer.stage.windowHeight
@@ -42,8 +47,7 @@ class Simulation {
   }
   draw () {
     this.renderer.stage.background(this.renderer.theme.backgroundColor);
-    this.stepDebug({ renderer: this.renderer, dimensions: this.dimensions });
-    this.showInfo();
+    this.step({ renderer: this.renderer, dimensions: this.dimensions });
   }
   mousePressed () {
     const mousePosition = Util.createVector(
@@ -64,35 +68,18 @@ class Simulation {
   }
   runInMem (steps = 0) {
     for (let i = 0; i < steps; i++) {
-      this.stepDebug({ dimensions: this.dimensions });
+      this.step({ dimensions: this.dimensions });
     }
-    this.showInfo();
     setTimeout(() => this.render || this.runInMem(100));
   }
-  stepDebug ({ renderer, dimensions }) {
-    let start = this.renderer.stage.millis();
+  step ({ renderer, dimensions }) {
+    this.stats.begin();
     this.ep.step({ renderer, dimensions });
-    let end = this.renderer.stage.millis();
-    this.lastStepDuration = end - start;
+    this.stats.end();
+    this.updateStats();
   }
-  showInfo () {
-    let agents = this.ep.entities.filter(e => e instanceof Agent);
-    let oldest = 0;
-    if (agents.length) {
-      oldest = agents.reduce((prev, curr) => {
-        const currentIsOlder = curr.age > prev.age;
-        return currentIsOlder ? curr : prev;
-      });
-    }
-    this.renderer.stage.fill(30);
-    this.renderer.stage.rect(90, 3, 300, 20);
-    this.renderer.stage.fill('#00acd2');
-    this.renderer.stage.stroke(0);
-    this.renderer.stage.text(
-      `Step: ${this.ep.stepCount} [${this.lastStepDuration.toFixed(2)} ms/s] Pop: ${agents.length}  Oldest: ${oldest.age}`,
-      95,
-      17
-    );
+  updateStats () {
+    this.statsPanelPopulation.update(this.ep.entities.filter(e => e instanceof Agent).length, 100);
   }
 }
 

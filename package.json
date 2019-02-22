@@ -25,7 +25,8 @@
   "homepage": "https://github.com/sh4nik/BloopLabs#readme",
   "dependencies": {
     "convnetjs": "^0.3.0",
-    "p5": "^0.7.3"
+    "p5": "^0.7.3",
+    "stats.js": "^0.17.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
