@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>pixi-poc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://pixijs.download/v5.0.0-rc.2/pixi.js"></script>
+    <script src="http://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+    <script type="text/javascript">
+        let entityCount = 10000;
+        let entities = [];
+
+        let stats = new Stats();
+
+        let type = "WebGL";
+        if (!PIXI.utils.isWebGLSupported()) {
+            type = "canvas"
+        }
+        function gameLoop(delta) {
+            stats.begin();
+            entities.forEach(e => {
+                e.rotation += 0.1;
+            });
+            stats.end();
+        }
+        function init() {
+            PIXI.utils.sayHello(type);
+            app = new PIXI.Application({
+                antialias: true,    // default: false
+                transparent: false, // default: false
+                resolution: 1       // default: 1
+            });
+
+            app.renderer.view.style.position = "absolute";
+            app.renderer.view.style.display = "block";
+            app.renderer.resize(window.innerWidth, window.innerHeight);
+            app.renderer.backgroundColor = 0xffffff;
+            document.body.appendChild(app.view);
+            app.ticker.add(delta => gameLoop(delta));
+
+            texture = PIXI.Texture.fromImage('https://66.media.tumblr.com/a93779b1c8075d7b6a1b5846169adc25/tumblr_inline_mi3fos92qj1roozkr.png');
+
+            for (let i = 0; i < entityCount; i++) {
+                let circle = new PIXI.Sprite(texture);
+                circle.anchor.x = 0.5;
+                circle.anchor.y = 0.5;
+                circle.x = Math.random() * window.innerWidth;
+                circle.y = Math.random() * window.innerHeight;
+                entities.push(circle);
+                app.stage.addChild(circle);
+            }
+
+            // for (let i = 0; i < entityCount; i++) {
+            //     let circle = new PIXI.Graphics();
+            //     circle.lineStyle(1, 0, 1);
+            //     circle.drawCircle(0, 0, 8);
+            //     circle.x = Math.random() * window.innerWidth;
+            //     circle.y = Math.random() * window.innerHeight;
+            //     entities.push(circle);
+            //     app.stage.addChild(circle);
+            // }
+
+            stats.showPanel(0);
+            document.body.appendChild(stats.dom);
+        }
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+    </style>
+</head>
+
+<body onload="init()">
+
+</body>
+
+</html>

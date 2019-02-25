@@ -6,5 +6,6 @@ import Inputs from './classes/Inputs';
 import Outputs from './classes/Outputs';
 import Theme from './classes/Theme';
 import Simulation from './classes/Simulation';
+import SimulationPIXI from './classes/SimulationPIXI';
 
-export { Entity, Edible, Agent, Brain, Inputs, Outputs, Theme, Simulation };
+export { Entity, Edible, Agent, Brain, Inputs, Outputs, Theme, Simulation, SimulationPIXI };

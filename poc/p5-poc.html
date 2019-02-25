@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>p5-poc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
+    <script src="http://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+    <script type="text/javascript">
+        let entityCount = 10000;
+
+        let stats = new Stats();
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            img = loadImage('https://66.media.tumblr.com/9e3bb883908f8e04aa6cdda1a053b6e1/tumblr_inline_mi3fowOJJP1roozkr.png');
+        }
+        function draw() {
+            stats.begin();
+            background(255);
+            noFill();
+            for (let i = 0; i < entityCount; i++) {
+                let x = Math.random() * windowWidth;
+                let y = Math.random() * windowHeight;
+                // ellipse(x, y, 80, 80);
+                image(img, x, y);
+            }
+            stats.end();
+        }
+        function init() {
+            stats.showPanel(0);
+            document.body.appendChild(stats.dom);
+        }
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+    </style>
+</head>
+
+<body onload="init()">
+
+</body>
+
+</html>

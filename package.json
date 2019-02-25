@@ -26,6 +26,7 @@
   "dependencies": {
     "convnetjs": "^0.3.0",
     "p5": "^0.7.3",
+    "pixi.js": "^5.0.0-rc.2",
     "stats.js": "^0.17.0"
   },
   "devDependencies": {
