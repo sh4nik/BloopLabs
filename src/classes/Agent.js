@@ -49,6 +49,7 @@ class Agent extends Entity {
     this.updateStats();
     this.grow();
     this.think(env, entities);
+    // this.seek(env.nearestEdible);
     this.updateMovement();
     if (this.isAgro) {
       if (env.nearestAgent) this.attemptToEat(env.nearestAgent);
@@ -133,6 +134,13 @@ class Agent extends Entity {
   think (env, entities) {
     this.brain.compute(env, this, entities);
   }
+  seek (target) {
+    let desired = P5.Vector.sub(target.position, this.position);
+    desired.setMag(this.maxSpeed);
+    let steering = P5.Vector.sub(desired, this.velocity);
+    steering.limit(this.maxForce);
+    this.applyForce(steering);
+  }
   updateStats () {
     this.age += 1;
     this.health = this.health > this.maxHealth ? this.maxHealth : this.health;
@@ -186,6 +194,7 @@ class Agent extends Entity {
     position.x += 20;
     position.y += 20;
     return new this.ClassRef({
+      ClassRef: this.ClassRef,
       brain: this.brain.mate(partner.brain),
       position,
       group: this.opts.group,

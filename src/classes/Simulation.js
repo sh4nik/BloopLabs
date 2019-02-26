@@ -71,7 +71,7 @@ class Simulation {
     for (let i = 0; i < steps; i++) {
       this.step({ dimensions: this.dimensions });
     }
-    setTimeout(() => this.render || this.runInMem(100));
+    setTimeout(() => this.render || this.runInMem(1));
   }
   step ({ renderer, dimensions }) {
     this.stats.begin();
