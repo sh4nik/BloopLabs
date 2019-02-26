@@ -41,6 +41,16 @@ class Theme {
         agroAgentBodyColor: '#b456d0',
         agroAgentFangColor: '#00aace'
       },
+      mojojojoHex: {
+        backgroundColor: 0x171b21,
+        foodColor: 0x00aace,
+        poisonColor: 0x6f23b4,
+        agentBodyColor: 0x53c285,
+        agentOutlineColor: 0x171b21,
+        edibleOutlineColor: 0x171b21,
+        agroAgentBodyColor: 0xb456d0,
+        agroAgentFangColor: 0x00aace
+      },
       original: {
         backgroundColor: '#112',
         foodColor: '#00f4b6',

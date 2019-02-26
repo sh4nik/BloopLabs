@@ -8,7 +8,7 @@ class SimulationPIXI {
   constructor ({ containerId, entityConfig, framerate, theme, clickHandler }) {
     this.framerate = framerate || 30;
     this.containerId = containerId || 'bl-sim';
-    this.theme = theme || 'mojojojo';
+    this.theme = theme || 'mojojojoHex';
     this.clickHandler = clickHandler;
     this.render = true;
     this.stats = new Stats();
@@ -16,13 +16,15 @@ class SimulationPIXI {
     // Note: RAM panel missing in mobile
     this.stats.showPanel(0);
     this.container = document.getElementById(this.containerId);
-    this.app = new PIXI.Application();
+    this.app = new PIXI.Application({
+      antialias: true
+    });
     this.app.renderer.view.style.position = 'absolute';
     this.app.renderer.view.style.display = 'block';
     this.app.renderer.resize(window.innerWidth, window.innerHeight);
     this.container.appendChild(this.app.view);
     this.container.appendChild(this.stats.dom);
-    this.app.ticker.add(delta => this.draw(delta));
+    this.ticker = this.app.ticker.add(delta => this.draw(delta));
     this.renderer = {
       stage: this.app.stage,
       theme: Theme.get(this.theme)
@@ -45,6 +47,21 @@ class SimulationPIXI {
     this.ep.step({ renderer, dimensions });
     this.stats.end();
     this.updateStats();
+  }
+  toggleRenderer () {
+    this.render = !this.render;
+    if (!this.render) {
+      this.ticker.stop();
+      this.runInMem();
+    } else {
+      this.ticker.start();
+    }
+  }
+  runInMem (steps = 0) {
+    for (let i = 0; i < steps; i++) {
+      this.step({ dimensions: this.dimensions });
+    }
+    setTimeout(() => this.render || this.runInMem(1));
   }
   updateStats () {
     this.statsPanelPopulation.update(this.ep.entities.filter(e => e instanceof Agent).length, 100);
