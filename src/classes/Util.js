@@ -4,6 +4,9 @@ class Util {
   static random (max) {
     return Math.random() * max;
   }
+  static randomBetween (min, max) {
+    return Util._p5.random(min, max);
+  }
   static findNearest (entity, entities) {
     return entities
       .filter(e => e !== entity)

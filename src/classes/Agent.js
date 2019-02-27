@@ -24,8 +24,8 @@ class Agent extends Entity {
     this.agroRate = opts.agroRate || -0.8;
     this.maxSpeed = opts.maxSpeed || 2.2;
     this.maxSteering = opts.maxSteering || 0.1;
-    this.velocity = Util.createVector(0, 0);
-    this.acceleration = Util.createVector(0, 0);
+    this.velocity = Util.createVector(Util.randomBetween(-1, 1), Util.randomBetween(-1, 1));
+    this.acceleration = Util.createVector(Util.randomBetween(-1, 1), Util.randomBetween(-1, 1));
     this.matingAge = opts.matingAge || 500;
     this.matingRate = opts.matingRate || 0.01;
     this.mutationRate = opts.mutationRate || 0.3;
