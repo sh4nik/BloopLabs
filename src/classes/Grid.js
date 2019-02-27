@@ -1,5 +1,5 @@
 class Grid {
-  constructor (opts) {
+  constructor(opts) {
     this.cellSize = opts.cellSize || 60;
     this.dimensions = opts.dimensions;
     this.data = [];
@@ -10,7 +10,7 @@ class Grid {
       }
     }
   }
-  assignToChunk (entity) {
+  assignToChunk(entity) {
     let previousChunk = entity.chunk;
     let chunk = {
       x: Math.floor(entity.position.x / this.cellSize),
@@ -25,28 +25,23 @@ class Grid {
     }
     return this.getEntitiesInReach(1, chunk, this.data);
   }
-  removeFromChunk (entity) {
+  removeFromChunk(entity) {
     let previousChunkEntities = this.data[entity.chunk.y][entity.chunk.x];
     this.data[entity.chunk.y][entity.chunk.x] = previousChunkEntities.filter(e => e !== entity);
     entity.chunk = null;
   }
-  getEntitiesInReach (range, chunk, data) {
+  getEntitiesInReach(range, chunk, data) {
     let entities = [];
-
     let startY = Math.max(0, (chunk.y - range));
     let endY = Math.min(data.length - 1, (chunk.y + range));
-
     for (let row = startY; row <= endY; row++) {
       let xrange = range - Math.abs(row - chunk.y);
-
       let startX = Math.max(0, (chunk.x - xrange));
       let endX = Math.min(data[row].length - 1, (chunk.x + xrange));
-
       for (let col = startX; col <= endX; col++) {
         entities = [...entities, ...data[row][col]];
       }
     }
-
     return entities;
   }
 }
