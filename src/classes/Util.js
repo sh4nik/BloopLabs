@@ -8,11 +8,12 @@ class Util {
     return entities
       .filter(e => e !== entity)
       .reduce((prev, curr) => {
+        if (!prev) return curr;
         const currentIsCloser =
           entity.position.dist(curr.position) <
           entity.position.dist(prev.position);
         return currentIsCloser ? curr : prev;
-      });
+      }, null);
   }
   static wrapAround (vector, dimensions) {
     if (vector.x < 0) vector.x = dimensions.width;

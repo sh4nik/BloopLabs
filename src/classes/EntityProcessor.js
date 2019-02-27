@@ -1,9 +1,11 @@
 import Util from './Util';
+import Grid from './Grid';
 
 class EntityProcessor {
   constructor ({ entityConfig, dimensions }) {
     this.dimensions = dimensions;
     this.config = entityConfig;
+    this.grid = new Grid({ dimensions });
     this.entities = [];
     this.incubator = [];
     this.stepCount = 0;
@@ -14,14 +16,21 @@ class EntityProcessor {
     this.incubator = [];
     this.entities.sort((a, b) => b.sortRank - a.sortRank);
     this.entities.forEach(e => {
-      if (e.step) e.step(this.entities, this.incubator, this.dimensions);
+      let chunkEntities = this.grid.assignToChunk(e);
+      if (e.step) e.step(chunkEntities, this.incubator, this.dimensions);
     });
     if (renderer) {
       this.entities.forEach(e => {
         if (e.render) e.render(renderer, this.entities);
       });
     }
-    this.entities = this.entities.filter(e => e.isActive);
+    this.entities = this.entities.filter(e => {
+      if (!e.isActive) {
+        this.grid.removeFromChunk(e);
+        if (e.destroy) e.destroy();
+      }
+      return e.isActive;
+    });
     this.stepCount += 1;
   }
   click (mousePosition) {

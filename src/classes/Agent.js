@@ -49,7 +49,7 @@ class Agent extends Entity {
     this.updateStats();
     this.grow();
     this.think(env, entities);
-    // this.seek(env.nearestEdible);
+    // if (env.nearestEdible) { this.seek(env.nearestEdible); }
     this.updateMovement();
     if (this.isAgro) {
       if (env.nearestAgent) this.attemptToEat(env.nearestAgent);
@@ -224,7 +224,7 @@ class Agent extends Entity {
     let edibles = entities.filter(e => e instanceof Edible);
     let nearestEdible = null;
     let nearestEdibleVector = null;
-    if (edibles.length > 1) {
+    if (edibles.length) {
       nearestEdible = Util.findNearest(this, edibles);
       let desiredVectorToEdible = P5.Vector.sub(
         nearestEdible.position,
