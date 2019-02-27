@@ -26,9 +26,9 @@ class Agent extends Entity {
     this.maxSteering = opts.maxSteering || 0.1;
     this.velocity = Util.createVector(Util.randomBetween(-1, 1), Util.randomBetween(-1, 1));
     this.acceleration = Util.createVector(Util.randomBetween(-1, 1), Util.randomBetween(-1, 1));
-    this.matingAge = opts.matingAge || 500;
-    this.matingRate = opts.matingRate || 0.01;
-    this.mutationRate = opts.mutationRate || 0.3;
+    this.matingAge = opts.matingAge || 200;
+    this.matingRate = opts.matingRate || 0.05;
+    this.mutationRate = opts.mutationRate || 0.5;
     this.brain =
       opts.brain ||
       new Brain({
@@ -115,8 +115,10 @@ class Agent extends Entity {
     renderer.stage.fill(bodyColor);
     renderer.stage.ellipse(0, 0, this.size, this.size);
 
-    renderer.stage.stroke(renderer.theme.agentOutlineColor);
-    renderer.stage.line(0, 0, 0, -this.size / 2);
+    if (this.age > this.matingAge) {
+      renderer.stage.stroke(renderer.theme.agentOutlineColor);
+      renderer.stage.line(0, 0, 0, -this.size / 2);
+    }
 
     renderer.stage.strokeWeight(this.size / 8);
     renderer.stage.fill(
@@ -161,7 +163,7 @@ class Agent extends Entity {
   }
   handleMating (agents, incubator) {
     if (this.age > this.matingAge && Util.random(1) < this.matingRate) {
-      let partner = this.findMate(agents);
+      let partner = this.findMate(agents.filter(a => a.age > a.matingAge));
       if (partner) {
         let child = this.mate(partner);
         if (Util.random(1) < this.mutationRate) child.brain.mutate();
