@@ -53,26 +53,27 @@
     function init() {
       sim = new Simulation({
         clickHandler: e => console.log(e),
+        theme: 'original',
         entityConfig: [
           {
             group: "normie",
             Entity: Agent,
-            max: 54,
+            max: 200,
             min: 4,
             count: 16,
-            opts: {}
+            opts: { size: 7, healthDrain: 4, maxSpeed: 1 }
           },
           {
             group: "poison",
             Entity: Edible,
             count: 50,
-            opts: { healthImpact: -300, themeElement: "poisonColor" }
+            opts: { healthImpact: -300, themeElement: "poisonColor", size: 4 }
           },
           {
             group: "food",
             Entity: Edible,
-            count: 100,
-            opts: { healthImpact: 300, themeElement: "foodColor" }
+            count: 500,
+            opts: { healthImpact: 300, themeElement: "foodColor", size: 4 }
           }
         ]
       });
