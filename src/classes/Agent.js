@@ -8,6 +8,7 @@ class Agent extends Entity {
   constructor (opts) {
     super(opts);
     this.ClassRef = opts.ClassRef || Agent;
+    this.parents = opts.parents || [];
     this.opts = opts;
     this.sortRank = opts.sortRank || 1;
     this.age = opts.age || 0;
@@ -61,6 +62,16 @@ class Agent extends Entity {
     Util.wrapAround(this.position, dimensions);
   }
   render (renderer, entities) {
+    if (this.age < 5) {
+      this.parents.forEach(p => {
+        if (p.isActive) {
+          renderer.stage.strokeWeight(this.minSize / 4);
+          renderer.stage.stroke(40, 100);
+          renderer.stage.line(this.position.x, this.position.y, p.position.x, p.position.y);
+        }
+      });
+    }
+
     renderer.stage.push();
     renderer.stage.translate(this.position.x, this.position.y);
     renderer.stage.rotate(this.velocity.heading() + renderer.stage.PI / 2);
@@ -199,11 +210,14 @@ class Agent extends Entity {
     return agents[index];
   }
   mate (partner) {
+    const parents = [this];
+    if (this !== partner) parents.push(partner);
     const position = this.position.copy();
     position.x += 20;
     position.y += 20;
     return new this.ClassRef({
       ClassRef: this.ClassRef,
+      parents,
       brain: this.brain.mate(partner.brain),
       position,
       group: this.opts.group,
