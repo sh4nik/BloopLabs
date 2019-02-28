@@ -28,7 +28,8 @@ class Agent extends Entity {
     this.acceleration = Util.createVector(Util.randomBetween(-1, 1), Util.randomBetween(-1, 1));
     this.matingAge = opts.matingAge || 200;
     this.matingRate = opts.matingRate || 0.05;
-    this.mutationRate = opts.mutationRate || 0.5;
+    this.cloningRate = opts.cloningRate || 0.2;
+    this.mutationRate = opts.mutationRate || 0.6;
     this.brain =
       opts.brain ||
       new Brain({
@@ -163,7 +164,12 @@ class Agent extends Entity {
   }
   handleMating (agents, incubator) {
     if (this.age > this.matingAge && Util.random(1) < this.matingRate) {
-      let partner = this.findMate(agents.filter(a => a.age > a.matingAge));
+      let partner;
+      if (Util.random(1) < this.cloningRate) {
+        partner = this;
+      } else {
+        partner = this.findMate(agents.filter(a => a.age > a.matingAge && a !== this));
+      }
       if (partner) {
         let child = this.mate(partner);
         if (Util.random(1) < this.mutationRate) child.brain.mutate();
@@ -175,6 +181,7 @@ class Agent extends Entity {
     this.acceleration.add(force);
   }
   findMate (agents) {
+    if (!agents || !agents.length) return null;
     let total = 0;
     agents.forEach(agent => {
       total += agent.health;
