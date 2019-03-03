@@ -6,6 +6,8 @@ class AgentRendererPixiSprite extends Agent {
     if (!this.sprite) {
       this.renderer = renderer;
       this.sprite = new PIXI.Sprite(AgentRendererPixiSprite.texture);
+      this.sprite.height = this.size;
+      this.sprite.width = this.size;
       this.sprite.anchor.x = 0.5;
       this.sprite.anchor.y = 0.5;
       renderer.stage.addChild(this.sprite);
