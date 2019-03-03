@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import Edible from './Edible';
 
-class PixiGraphicEdible extends Edible {
+class EdibleRendererPixiGraphics extends Edible {
   render (renderer, entities) {
     if (!this.graphics) {
       this.renderer = renderer;
@@ -23,4 +23,4 @@ class PixiGraphicEdible extends Edible {
   }
 }
 
-export default PixiGraphicEdible;
+export default EdibleRendererPixiGraphics;

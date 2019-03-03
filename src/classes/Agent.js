@@ -47,106 +47,19 @@ class Agent extends Entity {
   }
   step (entities, incubator, dimensions) {
     const env = this.prepEnvironment(entities);
-    this.acceleration.mult(0);
     this.updateStats();
     this.grow();
-    this.think(env, entities);
-    // if (env.nearestEdible) { this.seek(env.nearestEdible); }
+    this.acceleration.mult(0);
+    this.brain.compute(env, this, entities);
     this.updateMovement();
-    if (this.isAgro) {
-      if (env.nearestAgent) this.attemptToEat(env.nearestAgent);
-    } else {
-      if (env.nearestEdible) this.attemptToEat(env.nearestEdible);
-    }
+    this.attemptToEat(this.isAgro ? env.nearestAgent : env.nearestEdible);
     this.handleMating(env.agents, incubator);
     Util.wrapAround(this.position, dimensions);
-  }
-  render (renderer, entities) {
-    if (this.age < 5) {
-      this.parents.forEach(p => {
-        if (p.isActive) {
-          renderer.stage.strokeWeight(this.minSize / 4);
-          renderer.stage.stroke(40, 100);
-          renderer.stage.line(this.position.x, this.position.y, p.position.x, p.position.y);
-        }
-      });
-    }
-
-    renderer.stage.push();
-    renderer.stage.translate(this.position.x, this.position.y);
-    renderer.stage.rotate(this.velocity.heading() + renderer.stage.PI / 2);
-    renderer.stage.noFill();
-
-    let bodyColor = renderer.theme.agentBodyColor;
-
-    if (this.selected) {
-      renderer.stage.strokeWeight(this.minSize / 4);
-      renderer.stage.stroke(50);
-      renderer.stage.noFill();
-      renderer.stage.ellipse(0, 0, this.maxSize * 3, this.maxSize * 3);
-      renderer.stage.strokeWeight(this.minSize / 8);
-      renderer.stage.ellipse(0, 0, this.maxSize * 4, this.maxSize * 4);
-    }
-
-    if (this.isAgro) {
-      bodyColor = renderer.theme.agroAgentBodyColor;
-      renderer.stage.fill(renderer.theme.agroAgentFangColor);
-      renderer.stage.noStroke();
-      renderer.stage.triangle(
-        -this.size / 2,
-        -this.size / 5,
-        0,
-        -this.size / 2,
-        -this.size / 9,
-        -this.size
-      );
-      renderer.stage.triangle(
-        this.size / 2,
-        -this.size / 5,
-        0,
-        -this.size / 2,
-        this.size / 9,
-        -this.size
-      );
-    }
-
-    renderer.stage.noStroke();
-    renderer.stage.fill(255, 50);
-    let tailScale = this.velocity.mag() * 0.4;
-    renderer.stage.triangle(
-      0,
-      0,
-      (-this.size / 2) * tailScale,
-      tailScale * this.size,
-      (this.size / 2) * tailScale,
-      tailScale * this.size
-    );
-
-    renderer.stage.strokeWeight(this.size / 8);
-    renderer.stage.stroke(renderer.theme.agentOutlineColor);
-    renderer.stage.fill(bodyColor);
-    renderer.stage.ellipse(0, 0, this.size, this.size);
-
-    if (this.age > this.matingAge) {
-      renderer.stage.stroke(renderer.theme.agentOutlineColor);
-      renderer.stage.line(0, 0, 0, -this.size / 2);
-    }
-
-    renderer.stage.strokeWeight(this.size / 8);
-    renderer.stage.fill(
-      Util.mapVal(this.health < 0 ? 0 : this.health, 0, this.maxHealth, 70, 255)
-    );
-    renderer.stage.ellipse(0, -this.size / 2, this.size / 3, this.size / 3);
-
-    renderer.stage.pop();
   }
   updateMovement () {
     this.velocity.add(this.acceleration.limit(this.maxSteering));
     this.velocity.limit(this.maxSpeed);
     this.position.add(this.velocity);
-  }
-  think (env, entities) {
-    this.brain.compute(env, this, entities);
   }
   seek (target) {
     let desired = P5.Vector.sub(target.position, this.position);
@@ -165,7 +78,7 @@ class Agent extends Entity {
     if (this.size < this.maxSize) this.size += this.growthRate;
   }
   attemptToEat (entity) {
-    if (Util.checkCollision(this, entity)) {
+    if (entity && Util.checkCollision(this, entity)) {
       this.health += entity.eat();
     }
   }

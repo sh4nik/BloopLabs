@@ -4,7 +4,7 @@ import Agent from './Agent';
 import EntityProcessor from './EntityProcessor';
 import Stats from 'stats.js';
 
-class SimulationPIXI {
+class SimulationPixi {
   constructor ({ containerId, entityConfig, framerate, theme, clickHandler }) {
     this.framerate = framerate || 30;
     this.containerId = containerId || 'bl-sim';
@@ -68,4 +68,4 @@ class SimulationPIXI {
   }
 }
 
-export default SimulationPIXI;
+export default SimulationPixi;

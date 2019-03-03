@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import Agent from './Agent';
 
-class PixiGraphicAgent extends Agent {
+class AgentRendererPixiGraphics extends Agent {
   render (renderer, entities) {
     if (!this.graphicsContainer) {
       this.renderer = renderer;
@@ -75,4 +75,4 @@ class PixiGraphicAgent extends Agent {
   }
 }
 
-export default PixiGraphicAgent;
+export default AgentRendererPixiGraphics;

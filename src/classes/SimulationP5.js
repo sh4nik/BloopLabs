@@ -5,7 +5,7 @@ import EntityProcessor from './EntityProcessor';
 import Util from './Util';
 import Stats from 'stats.js';
 
-class Simulation {
+class SimulationP5 {
   constructor ({ containerId, entityConfig, framerate, theme, clickHandler }) {
     this.framerate = framerate || 30;
     this.containerId = containerId || 'bl-sim';
@@ -84,4 +84,4 @@ class Simulation {
   }
 }
 
-export default Simulation;
+export default SimulationP5;

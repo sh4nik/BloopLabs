@@ -7,16 +7,6 @@ class Edible extends Entity {
     this.healthImpact = opts.healthImpact || 0;
     this.themeElement = opts.themeElement;
   }
-  render (renderer, entities) {
-    renderer.stage.stroke(renderer.theme.edibleOutlineColor);
-    renderer.stage.fill(renderer.theme[this.themeElement]);
-    renderer.stage.ellipse(
-      this.position.x,
-      this.position.y,
-      this.size,
-      this.size
-    );
-  }
   eat () {
     this.isActive = false;
     return this.healthImpact;

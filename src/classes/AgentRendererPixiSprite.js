@@ -1,11 +1,11 @@
 import * as PIXI from 'pixi.js';
 import Agent from './Agent';
 
-class SpriteAgent extends Agent {
+class AgentRendererPixiSprite extends Agent {
   render (renderer, entities) {
     if (!this.sprite) {
       this.renderer = renderer;
-      this.sprite = new PIXI.Sprite(SpriteAgent.texture);
+      this.sprite = new PIXI.Sprite(AgentRendererPixiSprite.texture);
       this.sprite.anchor.x = 0.5;
       this.sprite.anchor.y = 0.5;
       renderer.stage.addChild(this.sprite);
@@ -22,6 +22,6 @@ class SpriteAgent extends Agent {
     if (this.sprite) this.renderer.stage.removeChild(this.sprite);
   }
 }
-SpriteAgent.texture = PIXI.Texture.from('https://66.media.tumblr.com/8d896a79dd5b48ac92dd5dd56cbf596a/tumblr_inline_p7qgcz13Tx1rhwzwl_75sq.gif');
+AgentRendererPixiSprite.texture = PIXI.Texture.from('https://66.media.tumblr.com/8d896a79dd5b48ac92dd5dd56cbf596a/tumblr_inline_p7qgcz13Tx1rhwzwl_75sq.gif');
 
-export default SpriteAgent;
+export default AgentRendererPixiSprite;

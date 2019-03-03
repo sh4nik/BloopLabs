@@ -38,13 +38,13 @@
     }
   </style>
   <script>
-    const Simulation = BloopLabs.Simulation;
-    const Agent = BloopLabs.Agent;
-    const Edible = BloopLabs.Edible;
+    // const Simulation = BloopLabs.SimulationP5;
+    // const Agent = BloopLabs.AgentRendererP5;
+    // const Edible = BloopLabs.EdibleRendererP5;
 
-    // const Simulation = BloopLabs.SimulationPIXI;
-    // const Agent = BloopLabs.PixiGraphicAgent;
-    // const Edible = BloopLabs.PixiGraphicEdible;
+    const Simulation = BloopLabs.SimulationPixi;
+    const Agent = BloopLabs.AgentRendererPixiGraphics;
+    const Edible = BloopLabs.EdibleRendererPixiGraphics;
 
     function init() {
       sim = new Simulation({
