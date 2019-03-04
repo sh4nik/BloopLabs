@@ -65,7 +65,7 @@ class Simulation {
     return this.ep.entities;
   }
   updateStats () {
-    this.statsPanelPopulation.update(this.ep.entities.filter(e => e instanceof Agent).length, 100);
+    this.statsPanelPopulation.update(this.ep.entities.filter(e => e instanceof Agent).length, 250);
   }
 }
 
