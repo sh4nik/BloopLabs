@@ -95,7 +95,7 @@ export class AgentRendererP5 extends Agent {
 
     renderer.stage.noStroke();
     renderer.stage.fill(255, 50);
-    let tailScale = this.velocity.mag() * 0.4;
+    let tailScale = this.velocity.mag();
     renderer.stage.triangle(
       0,
       0,

@@ -69,7 +69,7 @@ export class AgentRendererPixiGraphics extends Agent {
       this.tail.clear();
       this.tail.lineStyle(0);
       this.tail.beginFill(0x777777, 0.3);
-      let tailScale = this.velocity.mag() * 0.5;
+      let tailScale = this.velocity.mag();
       this.tail.moveTo(0, 0);
       this.tail.lineTo((-this.size) * tailScale, tailScale * this.size * 2);
       this.tail.lineTo((this.size) * tailScale, tailScale * this.size * 2);
