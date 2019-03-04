@@ -2,7 +2,7 @@ import Theme from './Theme';
 import Agent from './Agent';
 import EntityProcessor from './EntityProcessor';
 import Stats from 'stats.js';
-import RendererP5 from './RendererP5';
+import { RendererP5 } from './RendererP5';
 
 class Simulation {
   constructor ({ containerId, entityConfig, framerate, theme, clickHandler }) {

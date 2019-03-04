@@ -38,12 +38,11 @@
     }
   </style>
   <script>
-    const Simulation = BloopLabs.Simulation;
     const Agent = BloopLabs.AgentRendererP5;
     const Edible = BloopLabs.EdibleRendererP5;
 
     function init() {
-      sim = new Simulation({
+      sim = new BloopLabs.Simulation({
         clickHandler: e => console.log(e),
         entityConfig: [
           {

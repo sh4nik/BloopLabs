@@ -6,12 +6,16 @@ import Inputs from './classes/Inputs';
 import Outputs from './classes/Outputs';
 import Theme from './classes/Theme';
 import Simulation from './classes/Simulation';
-import AgentRendererP5 from './classes/AgentRendererP5';
-import EdibleRendererP5 from './classes/EdibleRendererP5';
-import AgentRendererPixiGraphics from './classes/AgentRendererPixiGraphics';
-import AgentRendererPixiSprite from './classes/AgentRendererPixiSprite';
-import AgentRendererPixiWireframe from './classes/AgentRendererPixiWireframe';
-import EdibleRendererPixiGraphics from './classes/EdibleRendererPixiGraphics';
+import {
+  AgentRendererP5,
+  EdibleRendererP5
+} from './classes/RendererP5';
+import {
+  AgentRendererPixiGraphics,
+  AgentRendererPixiSprite,
+  AgentRendererPixiWireframe,
+  EdibleRendererPixiGraphics
+} from './classes/RendererPixi';
 
 export {
   Entity,
