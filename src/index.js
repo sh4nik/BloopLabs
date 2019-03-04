@@ -5,8 +5,7 @@ import Brain from './classes/Brain';
 import Inputs from './classes/Inputs';
 import Outputs from './classes/Outputs';
 import Theme from './classes/Theme';
-import SimulationP5 from './classes/SimulationP5';
-import SimulationPixi from './classes/SimulationPixi';
+import Simulation from './classes/Simulation';
 import AgentRendererP5 from './classes/AgentRendererP5';
 import EdibleRendererP5 from './classes/EdibleRendererP5';
 import AgentRendererPixiGraphics from './classes/AgentRendererPixiGraphics';
@@ -22,8 +21,7 @@ export {
   Inputs,
   Outputs,
   Theme,
-  SimulationP5,
-  SimulationPixi,
+  Simulation,
   AgentRendererP5,
   EdibleRendererP5,
   AgentRendererPixiGraphics,

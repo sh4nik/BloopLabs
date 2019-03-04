@@ -1,27 +1,43 @@
 import P5 from 'p5';
 
-class Renderer {
-  constructor(opts) {
-    super(opts);
-    this.tick = opts.tick;
+class RendererP5 {
+  constructor ({ containerId, theme, dimensions, pre, update, post }) {
+    this.containerId = containerId;
+    this.theme = theme;
+    this.dimensions = dimensions;
+    this.sketch = null;
+    this.pre = pre;
+    this.update = update;
+    this.post = post;
     this.sketch = new P5(stage => {
+      this.stage = stage;
       P5.disableFriendlyErrors = true;
-      stage.frameRate(this.framerate);
-      stage.setup = () => this.setup();
-      stage.draw = () => this.draw();
-      stage.mousePressed = () => this.mousePressed();
+      this.stage.frameRate(30);
+      this.stage.setup = () => this.setup();
+      this.stage.draw = () => this.draw();
     });
   }
-  setup() {
+  setup () {
     document.getElementById('defaultCanvas0').remove();
-    document.getElementById(this.renderer.containerId).appendChild(this.stats.dom);
-    let cnv = this.renderer.stage.createCanvas(
-      this.renderer.stage.windowWidth,
-      this.renderer.stage.windowHeight
+    let cnv = this.stage.createCanvas(
+      this.dimensions.width,
+      this.dimensions.height
     );
-    cnv.parent(this.renderer.containerId);
+    cnv.parent(this.containerId);
   }
-
+  draw () {
+    this.pre();
+    this.stage.background(this.theme.backgroundColor);
+    let entities = this.update();
+    entities.forEach(e => e.render(this));
+    this.post();
+  }
+  start () {
+    this.stage.loop();
+  }
+  stop () {
+    this.stage.noLoop();
+  }
 }
 
-export default Renderer;
+export default RendererP5;

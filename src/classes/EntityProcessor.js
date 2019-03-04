@@ -10,7 +10,7 @@ class EntityProcessor {
     this.incubator = [];
     this.stepCount = 0;
   }
-  step ({ renderer }) {
+  step () {
     this.incubator = EntityProcessor.controlIncubator(this.incubator, this.entities, this.config, this.dimensions, !this.stepCount);
     this.entities = [...this.entities, ...this.incubator];
     this.incubator = [];
@@ -19,11 +19,6 @@ class EntityProcessor {
       let chunkEntities = this.grid.assignToChunk(e);
       if (e.step) e.step(chunkEntities, this.incubator, this.dimensions);
     });
-    if (renderer) {
-      this.entities.forEach(e => {
-        if (e.render) e.render(renderer, this.entities);
-      });
-    }
     this.entities = this.entities.filter(e => {
       if (!e.isActive) {
         this.grid.removeFromChunk(e);
