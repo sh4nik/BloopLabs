@@ -4,10 +4,11 @@ import Agent from './Agent';
 import Edible from './Edible';
 
 export class RendererP5 {
-  constructor ({ containerId, theme, dimensions, pre, update, post }) {
+  constructor ({ containerId, theme, dimensions, entityProcessor, pre, update, post }) {
     this.containerId = containerId;
     this.theme = theme;
     this.dimensions = dimensions;
+    this.ep = entityProcessor;
     this.sketch = null;
     this.pre = pre;
     this.update = update;
@@ -18,6 +19,9 @@ export class RendererP5 {
       this.stage.frameRate(30);
       this.stage.setup = () => this.setup();
       this.stage.draw = () => this.draw();
+      this.stage.mousePressed = () => {
+        this.ep.selectEntityAt(this.stage.mouseX, this.stage.mouseY);
+      };
     });
   }
   setup () {

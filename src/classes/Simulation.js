@@ -22,12 +22,14 @@ class Simulation {
     };
     this.ep = new EntityProcessor({
       entityConfig,
-      dimensions: this.dimensions
+      dimensions: this.dimensions,
+      selectHandler: clickHandler
     });
     this.renderer = new RendererP5({
       containerId: this.containerId,
       theme: this.theme,
       dimensions: this.dimensions,
+      entityProcessor: this.ep,
       pre: () => this.pre(),
       update: () => this.update(),
       post: () => this.post()

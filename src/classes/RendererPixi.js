@@ -3,10 +3,11 @@ import Agent from './Agent';
 import Edible from './Edible';
 
 export class RendererPixi {
-  constructor ({ containerId, theme, dimensions, pre, update, post }) {
+  constructor ({ containerId, theme, dimensions, entityProcessor, pre, update, post }) {
     this.containerId = containerId;
     this.theme = theme;
     this.dimensions = dimensions;
+    this.ep = entityProcessor;
     this.sketch = null;
     this.pre = pre;
     this.update = update;
@@ -52,6 +53,11 @@ export class AgentRendererPixiGraphics extends Agent {
       this.graphicsContainer.addChild(this.body);
       this.graphicsContainer.addChild(this.ridge);
       this.graphicsContainer.addChild(this.head);
+      this.graphicsContainer.interactive = true;
+      this.graphicsContainer.buttonMode = true;
+      this.graphicsContainer.on('pointerdown', () => {
+        this.renderer.ep.selectEntity(this);
+      });
       renderer.stage.addChild(this.graphicsContainer);
     }
     if (this.isActive) {
@@ -59,10 +65,12 @@ export class AgentRendererPixiGraphics extends Agent {
 
       // Selection
       if (this.selected) {
-        this.graphics.lineStyle(this.minSize / 4, 0x555555, 1);
-        this.graphics.drawCircle(0, 0, this.maxSize * 3);
-        this.graphics.lineStyle(this.minSize / 8, 0x555555, 1);
-        this.graphics.drawCircle(0, 0, this.maxSize * 4);
+        this.selection.lineStyle(this.minSize / 4, 0x555555, 1);
+        this.selection.drawCircle(0, 0, this.maxSize * 3);
+        this.selection.lineStyle(this.minSize / 8, 0x555555, 1);
+        this.selection.drawCircle(0, 0, this.maxSize * 4);
+      } else {
+        this.selection.clear();
       }
 
       // Tail
@@ -118,6 +126,11 @@ export class AgentRendererPixiSprite extends Agent {
       this.sprite.width = this.size;
       this.sprite.anchor.x = 0.5;
       this.sprite.anchor.y = 0.5;
+      this.sprite.interactive = true;
+      this.sprite.buttonMode = true;
+      this.sprite.on('pointerdown', () => {
+        this.renderer.ep.selectEntity(this);
+      });
       renderer.stage.addChild(this.sprite);
     }
     if (this.isActive) {
@@ -142,7 +155,11 @@ export class AgentRendererPixiWireframe extends Agent {
 
       this.graphics.lineStyle(this.size / 8, 0x666666, 1);
       this.graphics.drawCircle(this.position.x, this.position.y, this.size / 2);
-
+      this.graphics.interactive = true;
+      this.graphics.buttonMode = true;
+      this.graphics.on('pointerdown', () => {
+        this.renderer.ep.selectEntity(this);
+      });
       renderer.stage.addChild(this.graphics);
     }
     if (this.isActive) {
@@ -168,7 +185,11 @@ export class EdibleRendererPixiGraphics extends Edible {
       this.graphics.beginFill(renderer.theme[this.themeElement], 1);
       this.graphics.drawCircle(this.position.x, this.position.y, this.size / 2);
       this.graphics.endFill();
-
+      this.graphics.interactive = true;
+      this.graphics.buttonMode = true;
+      this.graphics.on('pointerdown', () => {
+        this.renderer.ep.selectEntity(this);
+      });
       renderer.stage.addChild(this.graphics);
     }
     if (!this.isActive) {

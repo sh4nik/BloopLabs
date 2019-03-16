@@ -2,9 +2,10 @@ import Util from './Util';
 import Grid from './Grid';
 
 class EntityProcessor {
-  constructor ({ entityConfig, dimensions }) {
+  constructor ({ entityConfig, dimensions, selectHandler }) {
     this.dimensions = dimensions;
     this.config = entityConfig;
+    this.selectHandler = selectHandler;
     this.grid = new Grid({ dimensions });
     this.entities = [];
     this.incubator = [];
@@ -28,13 +29,17 @@ class EntityProcessor {
     });
     this.stepCount += 1;
   }
-  click (mousePosition) {
-    this.entities.map(e => e.unselect());
-    const clickedEntity = this.entities.find(e => mousePosition.dist(e.position) <= e.size);
-    if (clickedEntity) {
-      clickedEntity.select();
+  selectEntityAt (positionX, positionY) {
+    const position = Util.createVector(positionX, positionY);
+    const entityAtPosition = this.entities.find(e => position.dist(e.position) <= e.size);
+    this.selectEntity(entityAtPosition);
+  }
+  selectEntity (entity) {
+    this.entities.forEach(e => e.unselect());
+    if (entity) {
+      entity.select();
     }
-    return clickedEntity;
+    this.selectHandler(entity);
   }
   static isGroupEntity (entity, entityType, group) {
     return entity instanceof entityType && entity.group === group;
