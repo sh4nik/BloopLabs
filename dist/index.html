@@ -1,79 +1,77 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>BloopLabs - Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="BloopLabs.js" type="text/javascript"></script>
+    <style>
+      body,
+      #main {
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+      }
 
-<head>
-  <title>BloopLabs - Demo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="BloopLabs.js" type="text/javascript"></script>
-  <style>
-    body,
-    #main {
-      margin: 0px;
-      padding: 0px;
-      display: flex;
-    }
+      .button {
+        position: absolute;
+        background: #101020;
+        border: none;
+        margin: 60px 7px;
+        font-family: monospace;
+        border-radius: 2px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #96a4c1;
+        font-size: 12px;
+        padding: 5px 15px;
+        opacity: 0.8;
+        z-index: 1;
+      }
 
-    .button {
-      position: absolute;
-      background: #333;
-      border: none;
-      margin: 60px 7px;
-      font-family: monospace;
-      border-radius: 2px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #00acd2;
-      font-size: 12px;
-      padding: 5px 15px;
-      opacity: 0.8;
-      z-index: 1;
-    }
+      .button:hover {
+        opacity: 1;
+      }
 
-    .button:hover {
-      opacity: 1;
-    }
+      .button:active {
+        color: #666;
+      }
+    </style>
+    <script>
+      const Agent = BloopLabs.AgentRendererP5;
+      const Edible = BloopLabs.EdibleRendererP5;
 
-    .button:active {
-      color: #666;
-    }
-  </style>
-  <script>
-    const Agent = BloopLabs.AgentRendererP5;
-    const Edible = BloopLabs.EdibleRendererP5;
+      function init() {
+        sim = new BloopLabs.Simulation({
+          clickHandler: e => console.log(e),
+          entityConfig: [
+            {
+              group: "normie",
+              Entity: Agent,
+              max: 200,
+              min: 50,
+              count: 50,
+              opts: { size: 10, healthDrain: 4, maxSpeed: 1, matingRate: 0.08 }
+            },
+            {
+              group: "poison",
+              Entity: Edible,
+              count: 300,
+              opts: { size: 4, healthImpact: -300, themeElement: "poisonColor" }
+            },
+            {
+              group: "food",
+              Entity: Edible,
+              count: 500,
+              opts: { size: 4, healthImpact: 300, themeElement: "foodColor" }
+            }
+          ]
+        });
+      }
+    </script>
+  </head>
 
-    function init() {
-      sim = new BloopLabs.Simulation({
-        clickHandler: e => console.log(e),
-        entityConfig: [
-          {
-            group: "normie",
-            Entity: Agent,
-            max: 200,
-            min: 50,
-            count: 50,
-            opts: { size: 7, healthDrain: 4, maxSpeed: 1, matingRate: 0.1 }
-          },
-          {
-            group: "poison",
-            Entity: Edible,
-            count: 300,
-            opts: { size: 4, healthImpact: -300, themeElement: "poisonColor" }
-          },
-          {
-            group: "food",
-            Entity: Edible,
-            count: 500,
-            opts: { size: 4, healthImpact: 300, themeElement: "foodColor" }
-          }
-        ]
-      });
-    }
-  </script>
-</head>
-
-<body onload="init()">
-  <div class="button" onclick="sim.toggleRenderer()">Speed</div>
-  <div id="bl-sim"></div>
-</body>
-
+  <body onload="init()">
+    <div class="button" onclick="sim.toggleRenderer()">Speed</div>
+    <div id="bl-sim"></div>
+  </body>
 </html>

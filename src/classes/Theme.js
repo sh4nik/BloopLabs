@@ -51,6 +51,19 @@ class Theme {
         agroAgentBodyColor: 0xb456d0,
         agroAgentFangColor: 0x00aace
       },
+      icecream: {
+        backgroundColor: '#303040',
+        foodColor: '#4FF0FF',
+        poisonColor: '#FFA3FD',
+        agentBodyColor: '#B089FF',
+        agentOutlineColor: '#303040',
+        edibleOutlineColor: '#303040',
+        agroAgentBodyColor: '#96A4C1',
+        agroAgentFangColor: '#FFA3FD',
+        selectionColor: '#96A4C1',
+        tailColor: '#96A4C1',
+        tailAlpha: 'AA'
+      },
       original: {
         backgroundColor: '#112',
         foodColor: '#00f4b6',

@@ -8,11 +8,13 @@ class Simulation {
   constructor ({ containerId, entityConfig, framerate, theme, clickHandler }) {
     this.framerate = framerate || 30;
     this.containerId = containerId || 'bl-sim';
-    this.theme = Theme.get(theme || 'mojojojo');
+    this.theme = Theme.get(theme || 'icecream');
     this.clickHandler = clickHandler;
     this.render = true;
     this.stats = new Stats();
-    this.statsPanelPopulation = this.stats.addPanel(new Stats.Panel('POP', '#d9f', '#203'));
+    this.statsPanelPopulation = this.stats.addPanel(
+      new Stats.Panel('POP', '#d9f', '#203')
+    );
     // Note: RAM panel missing in mobile
     this.stats.showPanel(this.stats.dom.childNodes.length - 1);
     document.getElementById(this.containerId).appendChild(this.stats.dom);
@@ -67,7 +69,10 @@ class Simulation {
     return this.ep.entities;
   }
   updateStats () {
-    this.statsPanelPopulation.update(this.ep.entities.filter(e => e instanceof Agent).length, 250);
+    this.statsPanelPopulation.update(
+      this.ep.entities.filter(e => e instanceof Agent).length,
+      250
+    );
   }
 }
 

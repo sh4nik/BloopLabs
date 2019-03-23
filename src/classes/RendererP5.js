@@ -4,7 +4,15 @@ import Agent from './Agent';
 import Edible from './Edible';
 
 export class RendererP5 {
-  constructor ({ containerId, theme, dimensions, entityProcessor, pre, update, post }) {
+  constructor ({
+    containerId,
+    theme,
+    dimensions,
+    entityProcessor,
+    pre,
+    update,
+    post
+  }) {
     this.containerId = containerId;
     this.theme = theme;
     this.dimensions = dimensions;
@@ -49,15 +57,20 @@ export class RendererP5 {
 
 export class AgentRendererP5 extends Agent {
   render (renderer, entities) {
-    if (this.age < 5) {
-      this.parents.forEach(p => {
-        if (p.isActive) {
-          renderer.stage.strokeWeight(this.minSize / 4);
-          renderer.stage.stroke(40, 100);
-          renderer.stage.line(this.position.x, this.position.y, p.position.x, p.position.y);
-        }
-      });
-    }
+    // if (this.age < 5) {
+    //   this.parents.forEach(p => {
+    //     if (p.isActive) {
+    //       renderer.stage.strokeWeight(this.minSize / 4);
+    //       renderer.stage.stroke(40, 100);
+    //       renderer.stage.line(
+    //         this.position.x,
+    //         this.position.y,
+    //         p.position.x,
+    //         p.position.y
+    //       );
+    //     }
+    //   });
+    // }
 
     renderer.stage.push();
     renderer.stage.translate(this.position.x, this.position.y);
@@ -68,7 +81,7 @@ export class AgentRendererP5 extends Agent {
 
     if (this.selected) {
       renderer.stage.strokeWeight(this.minSize / 4);
-      renderer.stage.stroke(50);
+      renderer.stage.stroke(renderer.theme.selectionColor);
       renderer.stage.noFill();
       renderer.stage.ellipse(0, 0, this.maxSize * 3, this.maxSize * 3);
       renderer.stage.strokeWeight(this.minSize / 8);
@@ -98,7 +111,7 @@ export class AgentRendererP5 extends Agent {
     }
 
     renderer.stage.noStroke();
-    renderer.stage.fill(255, 50);
+    renderer.stage.fill(renderer.theme.tailColor + renderer.theme.tailAlpha);
     let tailScale = this.velocity.mag();
     renderer.stage.triangle(
       0,
@@ -121,7 +134,13 @@ export class AgentRendererP5 extends Agent {
 
     renderer.stage.strokeWeight(this.size / 8);
     renderer.stage.fill(
-      Util.mapVal(this.health < 0 ? 0 : this.health, 0, this.maxHealth, 70, 255)
+      Util.mapVal(
+        this.health < 0 ? 0 : this.health,
+        0,
+        this.maxHealth,
+        100,
+        255
+      )
     );
     renderer.stage.ellipse(0, -this.size / 2, this.size / 3, this.size / 3);
 
@@ -131,6 +150,7 @@ export class AgentRendererP5 extends Agent {
 
 export class EdibleRendererP5 extends Edible {
   render (renderer, entities) {
+    renderer.stage.strokeWeight(this.size / 4);
     renderer.stage.stroke(renderer.theme.edibleOutlineColor);
     renderer.stage.fill(renderer.theme[this.themeElement]);
     renderer.stage.ellipse(

@@ -12,10 +12,10 @@ class Agent extends Entity {
     this.opts = opts;
     this.sortRank = opts.sortRank || 1;
     this.age = opts.age || 0;
-    this.health = opts.health || 500;
+    this.health = (opts.health || 500) + Util.randomBetween(0, 50);
     this.maxHealth = opts.maxHealth || this.health * 4;
     this.healthDrain = opts.healthDrain || 3;
-    this.agroDrain = opts.agroDrain || 2;
+    this.agroDrain = opts.agroDrain || 1;
     this.healthImpact = opts.healthImpact || 1300;
     this.growthRate = opts.growthRate || 0.01;
     this.maxSize = opts.maxSize || opts.size || 30;
@@ -25,8 +25,14 @@ class Agent extends Entity {
     this.agroRate = opts.agroRate || -0.8;
     this.maxSpeed = opts.maxSpeed || 2.2;
     this.maxSteering = opts.maxSteering || 0.1;
-    this.velocity = Util.createVector(Util.randomBetween(-1, 1), Util.randomBetween(-1, 1));
-    this.acceleration = Util.createVector(Util.randomBetween(-1, 1), Util.randomBetween(-1, 1));
+    this.velocity = Util.createVector(
+      Util.randomBetween(-1, 1),
+      Util.randomBetween(-1, 1)
+    );
+    this.acceleration = Util.createVector(
+      Util.randomBetween(-1, 1),
+      Util.randomBetween(-1, 1)
+    );
     this.matingAge = opts.matingAge || 200;
     this.matingRate = opts.matingRate || 0.05;
     this.cloningRate = opts.cloningRate || 0.2;
@@ -92,7 +98,9 @@ class Agent extends Entity {
       if (Util.random(1) < this.cloningRate) {
         partner = this;
       } else {
-        partner = this.findMate(agents.filter(a => a.age > a.matingAge && a !== this));
+        partner = this.findMate(
+          agents.filter(a => a.age > a.matingAge && a !== this)
+        );
       }
       if (partner) {
         let child = this.mate(partner);
