@@ -3,9 +3,17 @@ class Grid {
     this.cellSize = opts.cellSize || 30;
     this.dimensions = opts.dimensions;
     this.data = [];
-    for (let y = 0; y <= Math.ceil(this.dimensions.height / this.cellSize); y++) {
+    for (
+      let y = 0;
+      y <= Math.ceil(this.dimensions.height / this.cellSize);
+      y++
+    ) {
       this.data.push([]);
-      for (let x = 0; x <= Math.ceil(this.dimensions.width / this.cellSize); x++) {
+      for (
+        let x = 0;
+        x <= Math.ceil(this.dimensions.width / this.cellSize);
+        x++
+      ) {
         this.data[y].push([]);
       }
     }
@@ -17,7 +25,10 @@ class Grid {
       y: Math.floor(entity.position.y / this.cellSize)
     };
     let chunkEntities = this.data[chunk.y][chunk.x];
-    let newChunk = !previousChunk || previousChunk.x !== chunk.x || previousChunk.y !== chunk.y;
+    let newChunk =
+      !previousChunk ||
+      previousChunk.x !== chunk.x ||
+      previousChunk.y !== chunk.y;
     if (newChunk) {
       if (previousChunk) this.removeFromChunk(entity);
       entity.chunk = chunk;
@@ -27,17 +38,18 @@ class Grid {
   }
   removeFromChunk (entity) {
     let previousChunkEntities = this.data[entity.chunk.y][entity.chunk.x];
-    this.data[entity.chunk.y][entity.chunk.x] = previousChunkEntities.filter(e => e !== entity);
+    this.data[entity.chunk.y][entity.chunk.x] = previousChunkEntities.filter(
+      e => e !== entity
+    );
     entity.chunk = null;
   }
   getEntitiesInReach (range, chunk, data) {
     let entities = [];
-    let startY = Math.max(0, (chunk.y - range));
-    let endY = Math.min(data.length - 1, (chunk.y + range));
+    let startY = Math.max(0, chunk.y - range);
+    let endY = Math.min(data.length - 1, chunk.y + range);
     for (let row = startY; row <= endY; row++) {
-      let xrange = range - Math.abs(row - chunk.y);
-      let startX = Math.max(0, (chunk.x - xrange));
-      let endX = Math.min(data[row].length - 1, (chunk.x + xrange));
+      let startX = Math.max(0, chunk.x - range);
+      let endX = Math.min(data[row].length - 1, chunk.x + range);
       for (let col = startX; col <= endX; col++) {
         entities = [...entities, ...data[row][col]];
       }
