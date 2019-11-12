@@ -3,6 +3,12 @@
   <head>
     <title>BloopLabs - Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/7.0.4/jsoneditor.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/7.0.4/jsoneditor.min.js"></script>
     <script src="BloopLabs.js" type="text/javascript"></script>
     <style>
       body,
@@ -12,7 +18,43 @@
         display: flex;
       }
 
-      .button {
+      .config-button:hover #jsoneditor {
+        display: block;
+      }
+
+      .jsoneditor-popover,
+      .jsoneditor-schema-error,
+      div.jsoneditor td,
+      div.jsoneditor textarea,
+      div.jsoneditor th,
+      div.jsoneditor-field,
+      div.jsoneditor-value,
+      pre.jsoneditor-preview {
+        color: #666;
+      }
+
+      #jsoneditor {
+        display: none;
+        width: 400px;
+        height: 400px;
+      }
+
+      .jsoneditor-menu {
+        background-color: unset;
+        border-bottom: none;
+      }
+
+      .jsoneditor {
+        border: none;
+      }
+
+      .jsoneditor-menu {
+        background: unset !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      .speed-button {
         position: absolute;
         background: #101020;
         border: none;
@@ -28,50 +70,100 @@
         z-index: 1;
       }
 
-      .button:hover {
+      .speed-button:hover {
         opacity: 1;
       }
 
-      .button:active {
+      .speed-button:active {
+        color: #666;
+      }
+
+      .config-button {
+        position: absolute;
+        background: #101020;
+        border: none;
+        margin: 90px 7px;
+        font-family: monospace;
+        border-radius: 2px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #96a4c1;
+        font-size: 12px;
+        padding: 5px 15px;
+        opacity: 0.8;
+        z-index: 1;
+      }
+
+      .config-button:hover {
+        opacity: 1;
+      }
+
+      .config-button:active {
         color: #666;
       }
     </style>
     <script>
-      const Agent = BloopLabs.AgentRendererP5;
-      const Edible = BloopLabs.EdibleRendererP5;
+      const entityConfig = [
+        {
+          group: "normie",
+          entity: "Agent",
+          max: 50,
+          min: 20,
+          count: 20,
+          opts: {
+            size: 20,
+            healthDrain: 3,
+            agroDrain: 6,
+            maxSpeed: 1,
+            matingRate: 0.03
+          }
+        },
+        {
+          group: "poison",
+          entity: "Edible",
+          count: 300,
+          opts: { size: 4, healthImpact: -300, themeElement: "poisonColor" }
+        },
+        {
+          group: "food",
+          entity: "Edible",
+          count: 500,
+          opts: { size: 4, healthImpact: 300, themeElement: "foodColor" }
+        }
+      ];
 
       function init() {
+        const editor = new JSONEditor(document.getElementById("jsoneditor"), {
+          mode: "form",
+          modes: ["form", "code"],
+          search: false,
+          // mainMenuBar: false,
+          navigationBar: false,
+          statusBar: false,
+          onChangeJSON: json => {
+            Object.assign(entityConfig, json);
+          },
+          onChangeText: json => {
+            Object.assign(entityConfig, JSON.parse(json));
+          }
+        });
+
+        editor.set(entityConfig);
+
         sim = new BloopLabs.Simulation({
           clickHandler: e => console.log(e),
-          entityConfig: [
-            {
-              group: "normie",
-              Entity: Agent,
-              max: 200,
-              min: 50,
-              count: 50,
-              opts: { size: 10, healthDrain: 4, maxSpeed: 1, matingRate: 0.08 }
-            },
-            {
-              group: "poison",
-              Entity: Edible,
-              count: 300,
-              opts: { size: 4, healthImpact: -300, themeElement: "poisonColor" }
-            },
-            {
-              group: "food",
-              Entity: Edible,
-              count: 500,
-              opts: { size: 4, healthImpact: 300, themeElement: "foodColor" }
-            }
-          ]
+          entityConfig
         });
       }
     </script>
   </head>
 
   <body onload="init()">
-    <div class="button" onclick="sim.toggleRenderer()">Speed</div>
+    <div class="speed-button" onclick="sim.toggleRenderer()">Speed</div>
+    <div class="config-button">
+      Config
+      <div id="jsoneditor"></div>
+    </div>
     <div id="bl-sim"></div>
   </body>
 </html>

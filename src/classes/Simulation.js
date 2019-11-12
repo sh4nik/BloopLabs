@@ -2,7 +2,7 @@ import Theme from './Theme';
 import Agent from './Agent';
 import EntityProcessor from './EntityProcessor';
 import Stats from 'stats.js';
-import { RendererP5 } from './RendererP5';
+import { RendererP5, AgentRendererP5, EdibleRendererP5 } from './RendererP5';
 
 class Simulation {
   constructor ({ containerId, entityConfig, framerate, theme, clickHandler }) {
@@ -25,7 +25,11 @@ class Simulation {
     this.ep = new EntityProcessor({
       entityConfig,
       dimensions: this.dimensions,
-      selectHandler: clickHandler
+      selectHandler: clickHandler,
+      entityClasses: {
+        Agent: AgentRendererP5,
+        Edible: EdibleRendererP5
+      }
     });
     this.renderer = new RendererP5({
       containerId: this.containerId,

@@ -6,30 +6,5 @@ import Inputs from './classes/Inputs';
 import Outputs from './classes/Outputs';
 import Theme from './classes/Theme';
 import Simulation from './classes/Simulation';
-import {
-  AgentRendererP5,
-  EdibleRendererP5
-} from './classes/RendererP5';
-import {
-  AgentRendererPixiGraphics,
-  AgentRendererPixiSprite,
-  AgentRendererPixiWireframe,
-  EdibleRendererPixiGraphics
-} from './classes/RendererPixi';
 
-export {
-  Entity,
-  Edible,
-  Agent,
-  Brain,
-  Inputs,
-  Outputs,
-  Theme,
-  Simulation,
-  AgentRendererP5,
-  EdibleRendererP5,
-  AgentRendererPixiGraphics,
-  AgentRendererPixiSprite,
-  AgentRendererPixiWireframe,
-  EdibleRendererPixiGraphics
-};
+export { Entity, Edible, Agent, Brain, Inputs, Outputs, Theme, Simulation };
