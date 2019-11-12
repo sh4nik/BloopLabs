@@ -33,6 +33,37 @@
         color: #666;
       }
 
+      div.jsoneditor-field.jsoneditor-highlight,
+      div.jsoneditor-field[contenteditable="true"]:focus,
+      div.jsoneditor-field[contenteditable="true"]:hover,
+      div.jsoneditor-value.jsoneditor-highlight,
+      div.jsoneditor-value[contenteditable="true"]:focus,
+      div.jsoneditor-value[contenteditable="true"]:hover {
+        background-color: #555555;
+        border: #222222;
+      }
+
+      .jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected,
+      .jsoneditor-contextmenu
+        .jsoneditor-menu
+        li
+        button.jsoneditor-selected:focus,
+      .jsoneditor-contextmenu
+        .jsoneditor-menu
+        li
+        button.jsoneditor-selected:hover {
+        background-color: #ffa3fd;
+        color: #333;
+      }
+
+      div.jsoneditor-value.jsoneditor-string {
+        color: #4ff0ff;
+      }
+
+      div.jsoneditor-value.jsoneditor-number {
+        color: #ffa3fd;
+      }
+
       #jsoneditor {
         display: none;
         width: 400px;
