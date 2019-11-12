@@ -40,9 +40,33 @@ export class RendererP5 {
     );
     cnv.parent(this.containerId);
   }
+  renderMap () {
+    this.stage.strokeWeight(0.2);
+    this.stage.stroke(this.theme.selectionColor);
+    this.stage.noFill();
+    for (
+      let y = 0;
+      y <= Math.ceil(this.ep.grid.dimensions.height / this.ep.grid.cellSize);
+      y++
+    ) {
+      for (
+        let x = 0;
+        x <= Math.ceil(this.ep.grid.dimensions.width / this.ep.grid.cellSize);
+        x++
+      ) {
+        this.stage.rect(
+          x * this.ep.grid.cellSize,
+          y * this.ep.grid.cellSize,
+          this.ep.grid.cellSize,
+          this.ep.grid.cellSize
+        );
+      }
+    }
+  }
   draw () {
     this.pre();
     this.stage.background(this.theme.backgroundColor);
+    // this.renderMap();
     let entities = this.update();
     entities.forEach(e => e.render(this));
     this.post();
@@ -57,6 +81,7 @@ export class RendererP5 {
 
 export class AgentRendererP5 extends Agent {
   render (renderer, entities) {
+    // Show parent indicators
     // if (this.age < 5) {
     //   this.parents.forEach(p => {
     //     if (p.isActive) {
